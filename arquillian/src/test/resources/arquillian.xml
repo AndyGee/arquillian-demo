@@ -21,29 +21,15 @@
             xsi:schemaLocation="
         http://jboss.org/schema/arquillian
         http://jboss.org/schema/arquillian/arquillian_1_0.xsd">
-  <!-- if you decided to use openejb embedded adapter in the pom
-  <container qualifier="openejb-embedded" default="true">
-    <configuration>
-      <property name="properties">
-        my-datasource = new://Resource?type=DataSource
-        my-datasource.JdbcUrl = jdbc:hsqldb:mem:my-datasource
-        my-datasource.UserName = sa
-        my-datasource.Password =
-      </property>
-    </configuration>
-  </container>
-  -->
-  <!-- if you decided to use tomee adapter in the pom
+
   <container qualifier="tomee" default="true">
     <configuration>
       <property name="httpPort">-1</property>
       <property name="stopPort">-1</property>
       <property name="ajpPort">-1</property>
       <property name="version">${tomee.version}</property>
-      <property name="dir">target/apache-tomee-remote</property>
-      <property name="appWorkingDir">target/arquillian-test-working-dir</property>
       <property name="properties" />
     </configuration>
   </container>
-  -->
+
 </arquillian>

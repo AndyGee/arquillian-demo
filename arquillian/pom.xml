@@ -30,6 +30,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <version.openjpa>2.3.0</version.openjpa>
+    <version.tomee>1.7.1</version.tomee>
   </properties>
 
   <dependencies>
@@ -40,10 +41,10 @@
       <scope>provided</scope>
     </dependency>
 
-    <!-- to test with TomEE and Arquillian
+    <!-- to test with TomEE and Arquillian-->
     <dependency>
       <groupId>org.apache.openejb</groupId>
-      <artifactId>arquillian-tomee-remote</artifactId>
+      <artifactId>arquillian-tomee-embedded</artifactId>
       <version>1.7.1</version>
       <scope>test</scope>
     </dependency>
@@ -59,28 +60,7 @@
       <version>4.11</version>
       <scope>test</scope>
     </dependency>
-    -->
 
-    <!-- to test with OpenEJB embedded and Arquillian
-    <dependency>
-      <groupId>org.apache.openejb</groupId>
-      <artifactId>arquillian-openejb-embedded-4</artifactId>
-      <version>4.7.1</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.arquillian.junit</groupId>
-      <artifactId>arquillian-junit-container</artifactId>
-      <version>1.1.5.Final</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.11</version>
-      <scope>test</scope>
-    </dependency>
-    -->
   </dependencies>
 
   <build>
