@@ -7,7 +7,7 @@ Arquillian driven testing, and the advantages it brings in regards to ensuring a
 Java, Technical - Testing JavaEE Applications.
 
 ### Audience level
-Beginner to intermediate JavaEE developers.
+Beginner to intermediate JavaEE developers, and those with an interest in "Arquillian Cube"
 
 ### Type
 Slides and Code
