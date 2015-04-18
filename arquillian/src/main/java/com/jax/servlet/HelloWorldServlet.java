@@ -14,11 +14,22 @@
  *   See the License for the specific language governing permissions and
  *   limitations under the License.
  */
-package com.jax;
+package com.jax.servlet;
 
-import org.jboss.arquillian.junit.Arquillian;
-import org.junit.runner.RunWith;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 
-@RunWith(Arquillian.class)
-public class ArquillianSimple {
+@WebServlet("/HelloWorld")
+public class HelloWorldServlet extends HttpServlet {
+
+    @Override
+    protected void doGet(final HttpServletRequest req, final HttpServletResponse resp) throws ServletException, IOException {
+        final PrintWriter writer = resp.getWriter();
+        writer.println("Hello World");
+    }
 }

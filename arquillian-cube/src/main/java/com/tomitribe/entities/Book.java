@@ -14,11 +14,39 @@
  *   See the License for the specific language governing permissions and
  *   limitations under the License.
  */
-package com.jax;
+package com.tomitribe.entities;
 
-import org.jboss.arquillian.junit.Arquillian;
-import org.junit.runner.RunWith;
+import javax.persistence.*;
 
-@RunWith(Arquillian.class)
-public class ArquillianSimple {
+@Entity
+public class Book {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int bookId;
+    private String bookTitle;
+
+    public int getBookId() {
+        return bookId;
+    }
+
+    public void setBookId(int bookId) {
+        this.bookId = bookId;
+    }
+
+    public String getBookTitle() {
+        return bookTitle;
+    }
+
+    public void setBookTitle(String bookName) {
+        this.bookTitle = bookName;
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "bookId=" + bookId +
+                ", bookTitle='" + bookTitle + '\'' +
+                '}';
+    }
 }
+

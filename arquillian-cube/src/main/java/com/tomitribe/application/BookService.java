@@ -14,11 +14,31 @@
  *   See the License for the specific language governing permissions and
  *   limitations under the License.
  */
-package com.jax;
+package com.tomitribe.application;
 
-import org.jboss.arquillian.junit.Arquillian;
-import org.junit.runner.RunWith;
+import com.tomitribe.entities.Book;
 
-@RunWith(Arquillian.class)
-public class ArquillianSimple {
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaQuery;
+import java.util.List;
+
+@Stateless
+public class BookService {
+
+    @PersistenceContext(unitName = "book-pu")
+    private EntityManager entityManager;
+
+    public void addBook(Book book)
+    {
+      entityManager.persist(book);
+    }
+
+    public List<Book> getAllBooks()
+    {
+        CriteriaQuery<Book> cq = entityManager.getCriteriaBuilder().createQuery(Book.class);
+        cq.select(cq.from(Book.class));
+        return entityManager.createQuery(cq).getResultList();
+    }
 }
