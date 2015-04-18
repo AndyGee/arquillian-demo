@@ -19,14 +19,14 @@ package com.tomitribe.presentation;
 import com.tomitribe.application.IBookService;
 import com.tomitribe.entities.Book;
 
-import javax.inject.Inject;
+import javax.ejb.EJB;
 import javax.inject.Named;
 import java.util.List;
 
 @Named
 public class BookBean {
 
-    @Inject
+    @EJB
     private IBookService bookService;
 
     private List<Book> booksAvailable;

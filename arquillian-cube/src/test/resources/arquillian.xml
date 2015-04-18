@@ -22,19 +22,21 @@
         http://jboss.org/schema/arquillian
         http://jboss.org/schema/arquillian/arquillian_1_0.xsd">
 
-  <!--<extension qualifier="docker">-->
-  <!--<property name="serverVersion">1.18</property>-->
-  <!--<property name="serverUri">http://localhost:2376</property>-->
-  <!--<property name="dockerContainers">-->
-  <!--tomee:-->
-  <!--image: tomitribe/tomee-plus-171-codenvy-->
-  <!--exposedPorts: [8089/tcp]-->
-  <!--await:-->
-  <!--strategy: polling-->
-  <!--env: [TOMCAT_PASS=mypass, JAVA_OPTS=-Dcom.sun.management.jmxremote.port=8089 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false]-->
-  <!--portBindings: [8089/tcp, 8080/tcp]-->
-  <!--</property>-->
-  <!--</extension>-->
+  <extension qualifier="docker">
+    <property name="serverVersion">1.18</property>
+    <property name="serverUri">http://192.168.59.103:2376</property>
+    <!--@formatter:off-->
+    <property name="dockerContainers">
+      tomee:
+        image: tomitribe/tomee-plus-171-codenvy
+        exposedPorts: [8089/tcp]
+        await:
+          strategy: polling
+        env: [TOMCAT_PASS=mypass, JAVA_OPTS=-Dcom.sun.management.jmxremote.port=8089 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false]
+        portBindings: [8089/tcp, 8080/tcp]
+    </property>
+    <!--@formatter:on-->
+  </extension>
 
   <!-- if you decided to use tomee adapter in the pom-->
   <container qualifier="tomee" default="true">

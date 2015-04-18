@@ -51,7 +51,7 @@
     <!-- Test with TomEE and Arquillian -->
     <dependency>
       <groupId>org.apache.openejb</groupId>
-      <artifactId>arquillian-tomee-embedded</artifactId>
+      <artifactId>arquillian-tomee-remote</artifactId>
       <version>${version.tomee}</version>
       <scope>test</scope>
     </dependency>
@@ -62,11 +62,36 @@
       <scope>test</scope>
     </dependency>
 
-    <!--<dependency>-->
-      <!--<groupId>org.arquillian.cube</groupId>-->
-      <!--<artifactId>arquillian-cube-docker</artifactId>-->
-      <!--<version>1.0.0.Alpha5</version>-->
-    <!--</dependency>-->
+    <dependency>
+      <groupId>org.arquillian.cube</groupId>
+      <artifactId>arquillian-cube-docker</artifactId>
+      <version>1.0.0.Alpha5</version>
+      <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>slf4j-simple</artifactId>
+          <groupId>org.slf4j</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
+    <dependency>
+      <groupId>javax.ws.rs</groupId>
+      <artifactId>javax.ws.rs-api</artifactId>
+      <version>2.0.1</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.cxf</groupId>
+      <artifactId>cxf-rt-frontend-jaxrs</artifactId>
+      <version>2.7.15</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.cxf</groupId>
+      <artifactId>cxf-rt-rs-extension-providers</artifactId>
+      <version>2.7.15</version>
+    </dependency>
 
     <dependency>
       <groupId>junit</groupId>

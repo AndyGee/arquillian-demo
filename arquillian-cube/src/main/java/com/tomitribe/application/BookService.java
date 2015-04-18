@@ -19,31 +19,30 @@ package com.tomitribe.application;
 import com.tomitribe.entities.Book;
 
 import javax.ejb.Stateless;
-import javax.enterprise.inject.Default;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
 
 @Stateless
-@Default
 public class BookService implements IBookService {
 
     @PersistenceContext(unitName = "book-pu")
-    private EntityManager entityManager;
+    private EntityManager em;
 
     @Override
     public Book addBook(final Book book) {
-        entityManager.persist(book);
-        entityManager.detach(book);
+        em.persist(book);
+        em.flush();
+        em.detach(book);
         return book;
     }
 
     @Override
     public List<Book> getAllBooks() {
-        final CriteriaQuery<Book> cq = entityManager.getCriteriaBuilder().createQuery(Book.class);
+        final CriteriaQuery<Book> cq = em.getCriteriaBuilder().createQuery(Book.class);
         cq.select(cq.from(Book.class));
-        final List<Book> resultList = entityManager.createQuery(cq).getResultList();
+        final List<Book> resultList = em.createQuery(cq).getResultList();
         return resultList;
     }
 }

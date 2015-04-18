@@ -20,6 +20,7 @@ import com.tomitribe.application.IBookService;
 import com.tomitribe.application.BookService;
 import com.tomitribe.entities.Book;
 import com.tomitribe.presentation.BookBean;
+import org.apache.openejb.testing.EnableServices;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
@@ -34,6 +35,7 @@ import javax.ejb.EJB;
 import java.util.List;
 
 @RunWith(Arquillian.class)
+@EnableServices({"jax-ws"})
 public class ArquillianCube {
 
     /**
@@ -51,6 +53,7 @@ public class ArquillianCube {
 
                 //Add classes required to test
                 .addClasses(
+                        IBookService.class,
                         BookService.class,
                         BookBean.class,
                         Book.class

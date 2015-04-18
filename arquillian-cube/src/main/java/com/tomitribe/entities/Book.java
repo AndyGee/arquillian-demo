@@ -25,17 +25,14 @@ import java.io.Serializable;
 @Entity
 public class Book implements Serializable {
 
-    private Integer bookId;
-    private String bookTitle;
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public int getBookId() {
-        return bookId;
-    }
+    private long bookId;
 
-    public void setBookId(final int bookId) {
-        this.bookId = bookId;
+    private String bookTitle;
+
+    public long getBookId() {
+        return bookId;
     }
 
     public String getBookTitle() {
