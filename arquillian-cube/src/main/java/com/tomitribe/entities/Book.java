@@ -16,20 +16,25 @@
  */
 package com.tomitribe.entities;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import java.io.Serializable;
 
 @Entity
-public class Book {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int bookId;
+public class Book implements Serializable {
+
+    private Integer bookId;
     private String bookTitle;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public int getBookId() {
         return bookId;
     }
 
-    public void setBookId(int bookId) {
+    public void setBookId(final int bookId) {
         this.bookId = bookId;
     }
 
@@ -37,15 +42,15 @@ public class Book {
         return bookTitle;
     }
 
-    public void setBookTitle(String bookName) {
+    public void setBookTitle(final String bookName) {
         this.bookTitle = bookName;
     }
 
     @Override
     public String toString() {
         return "Book{" +
-                "bookId=" + bookId +
-                ", bookTitle='" + bookTitle + '\'' +
+                "bookId=" + this.getBookId() +
+                ", bookTitle='" + this.getBookTitle() + '\'' +
                 '}';
     }
 }

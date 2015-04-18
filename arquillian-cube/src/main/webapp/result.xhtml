@@ -20,28 +20,28 @@
 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <h:body>
-<f:view>
+  <f:view>
     <h:form id="mainForm">
-        <h2>Book Added !</h2>
-        <h:commandLink action="back">
-            <h:outputText value="Add more books"/>
-        </h:commandLink>
+      <h2>Book Added !</h2>
+      <h:commandLink action="back">
+        <h:outputText value="Add more books"/>
+      </h:commandLink>
 
 
-        <h:commandButton action="#{bookBean.fetchBooks}" value="View books present"/>
+      <h:commandButton action="#{bookBean.fetchBooks}" value="View books present"/>
 
-        <br/>
-        <ui:repeat value="#{bookBean.booksAvailable}" var="book">
-            #{book.bookTitle} <br/>
-        </ui:repeat>
+      <br/>
+      <ui:repeat value="#{bookBean.booksAvailable}" var="book">
+        #{book.bookTitle} <br/>
+      </ui:repeat>
 
     </h:form>
-</f:view>
+  </f:view>
 </h:body>
 </html>

@@ -16,7 +16,7 @@
  */
 package com.tomitribe.presentation;
 
-import com.tomitribe.application.BookService;
+import com.tomitribe.application.IBookService;
 import com.tomitribe.entities.Book;
 
 import javax.inject.Inject;
@@ -27,7 +27,8 @@ import java.util.List;
 public class BookBean {
 
     @Inject
-    private BookService bookService;
+    private IBookService bookService;
+
     private List<Book> booksAvailable;
     private String bookTitle;
 
@@ -35,7 +36,7 @@ public class BookBean {
         return bookTitle;
     }
 
-    public void setBookTitle(String bookTitle) {
+    public void setBookTitle(final String bookTitle) {
         this.bookTitle = bookTitle;
     }
 
@@ -43,19 +44,17 @@ public class BookBean {
         return booksAvailable;
     }
 
-    public void setBooksAvailable(List<Book> booksAvailable) {
+    public void setBooksAvailable(final List<Book> booksAvailable) {
         this.booksAvailable = booksAvailable;
     }
 
-    public String fetchBooks()
-    {
-        booksAvailable=bookService.getAllBooks();
+    public String fetchBooks() {
+        booksAvailable = bookService.getAllBooks();
         return "success";
     }
 
-    public String add()
-    {
-        Book book = new Book();
+    public String add() {
+        final Book book = new Book();
         book.setBookTitle(bookTitle);
         bookService.addBook(book);
         return "success";

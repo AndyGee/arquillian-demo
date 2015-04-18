@@ -16,32 +16,39 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-<arquillian
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://jboss.org/schema/arquillian http://jboss.org/schema/arquillian/arquillian_1_0.xsd">
-  <!-- if you decided to use openejb embedded adapter in the pom
-  <container qualifier="openejb-embedded" default="true">
+<arquillian xmlns="http://jboss.org/schema/arquillian"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="
+        http://jboss.org/schema/arquillian
+        http://jboss.org/schema/arquillian/arquillian_1_0.xsd">
+
+  <!--<extension qualifier="docker">-->
+  <!--<property name="serverVersion">1.18</property>-->
+  <!--<property name="serverUri">http://localhost:2376</property>-->
+  <!--<property name="dockerContainers">-->
+  <!--tomee:-->
+  <!--image: tomitribe/tomee-plus-171-codenvy-->
+  <!--exposedPorts: [8089/tcp]-->
+  <!--await:-->
+  <!--strategy: polling-->
+  <!--env: [TOMCAT_PASS=mypass, JAVA_OPTS=-Dcom.sun.management.jmxremote.port=8089 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false]-->
+  <!--portBindings: [8089/tcp, 8080/tcp]-->
+  <!--</property>-->
+  <!--</extension>-->
+
+  <!-- if you decided to use tomee adapter in the pom-->
+  <container qualifier="tomee" default="true">
     <configuration>
-      <property name="properties">
-        my-datasource = new://Resource?type=DataSource
-        my-datasource.JdbcUrl = jdbc:hsqldb:mem:my-datasource
-        my-datasource.UserName = sa
-        my-datasource.Password =
+      <property name="classifier">plus</property>
+      <property name="httpPort">8080</property>
+      <property name="stopPort">-1</property>
+      <property name="ajpPort">-1</property>
+      <property name="version">1.7.1</property>
+      <property name="properties"/>
+      <property name="deployerProperties">
+        openejb.deployer.binaries.use=true
       </property>
     </configuration>
   </container>
-  -->
-  <!-- if you decided to use tomee adapter in the pom
-  <container qualifier="tomee" default="true">
-    <configuration>
-      <property name="httpPort">-1</property>
-      <property name="stopPort">-1</property>
-      <property name="ajpPort">-1</property>
-      <property name="version">${tomee.version}</property>
-      <property name="dir">target/apache-tomee-remote</property>
-      <property name="appWorkingDir">target/arquillian-test-working-dir</property>
-      <property name="properties" />
-    </configuration>
-  </container>
-  -->
+
 </arquillian>
