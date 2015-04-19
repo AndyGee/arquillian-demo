@@ -16,14 +16,16 @@
  */
 package com.tomitribe;
 
-import com.tomitribe.application.IBookService;
 import com.tomitribe.application.BookService;
+import com.tomitribe.application.IBookService;
 import com.tomitribe.entities.Book;
 import com.tomitribe.presentation.BookBean;
-import org.apache.openejb.testing.EnableServices;
+import org.apache.openejb.client.RemoteInitialContextFactory;
 import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
+import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
@@ -31,21 +33,25 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import javax.ejb.EJB;
+import javax.naming.InitialContext;
+import java.net.URL;
 import java.util.List;
+import java.util.Properties;
 
+/**
+ * Run the test using the Arquillian test provider
+ */
 @RunWith(Arquillian.class)
-@EnableServices({"jax-ws"})
 public class ArquillianCube {
 
     /**
-     * This class will deploy the war file to the container.
-     * It will actually contain this test class, which is tested
-     * within the container context.
+     * This test will deploy the war file to the container.
+     * It will NOT contain this actual test class, which is tested
+     * as a client.
      *
      * @return WebArchive to deploy
      */
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive deploy() {
 
         //Name of war file is just convenient
@@ -55,12 +61,11 @@ public class ArquillianCube {
                 .addClasses(
                         IBookService.class,
                         BookService.class,
-                        BookBean.class,
-                        Book.class
+                        BookBean.class
                 )
 
                         //Add packages required to test
-                //.addPackage("com.tomitribe.entities")
+                .addPackage("com.tomitribe.entities")
 
                         //Use our project test-persistence.xml file
                 .addAsResource("test-persistence.xml", "META-INF/persistence.xml")
@@ -69,30 +74,29 @@ public class ArquillianCube {
                 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
     }
 
-    /**
-     * Because this class is deployed on the container we can inject the EJB
-     */
-    @EJB
-    private IBookService ejb;
+    @ArquillianResource
+    private URL serverUrl;
 
     private static final String TITLE = "Of Mice and Men";
 
     @Test
     @InSequence(1)
-    public void testBookServiceAddBook() {
+    @RunAsClient
+    public void testBookServiceAddBook() throws Exception {
         Book b = new Book();
         b.setBookTitle(TITLE);
 
-        b = ejb.addBook(b);
+        b = getBookService(serverUrl).addBook(b);
 
         Assert.assertTrue("Book ID was not set", b.getBookId() > 0);
     }
 
     @Test
+    @RunAsClient
     @InSequence(2)
-    public void testBookServiceGetBooks() {
+    public void testBookServiceGetBooks() throws Exception {
 
-        final List<Book> allBooks = ejb.getAllBooks();
+        final List<Book> allBooks = getBookService(serverUrl).getAllBooks();
         boolean found = false;
 
         for (final Book b : allBooks) {
@@ -103,5 +107,28 @@ public class ArquillianCube {
         }
 
         Assert.assertTrue("Failed to find the book", found);
+    }
+
+    /**
+     * Get the remote EJB interface using the provided server URI
+     *
+     * @param serverUrl Server URI
+     * @return IBookService
+     * @throws Exception On error
+     */
+    private static IBookService getBookService(final URL serverUrl) throws Exception {
+
+        String url = serverUrl.toExternalForm();
+        url = url.substring(0, url.indexOf('/', url.lastIndexOf(':'))) + "/tomee/ejb";
+
+        final Properties env = new Properties();
+        env.put("java.naming.factory.initial", RemoteInitialContextFactory.class.getName());
+        env.put("java.naming.provider.url", url);
+
+
+        final InitialContext ctx = new InitialContext(env);
+
+        final IBookService service = (IBookService) ctx.lookup("BookServiceRemote");
+        return service;
     }
 }

@@ -22,26 +22,27 @@
         http://jboss.org/schema/arquillian
         http://jboss.org/schema/arquillian/arquillian_1_0.xsd">
 
-  <!--<extension qualifier="docker">-->
-    <!--<property name="serverVersion">1.18</property>-->
+  <extension qualifier="docker">
+    <property name="serverVersion">1.18</property>
     <!--<property name="serverUri">http://192.168.59.103:2376</property>-->
-    <!--&lt;!&ndash;@formatter:off&ndash;&gt;-->
-    <!--<property name="dockerContainers">-->
-      <!--tomee:-->
-        <!--image: tomitribe/tomee-plus-171-codenvy-->
-        <!--exposedPorts: [8089/tcp]-->
-        <!--await:-->
-          <!--strategy: polling-->
-        <!--env: [CATALINA_OPTS=-Djavax.ws.rs.ext.RuntimeDelegate=org.glassfish.jersey.server.internal.RuntimeDelegateImpl -Dopenejb.api.javax.ws.rs.Path.validation=false -Dopenejb.classloader.forced-load=javax.ws.rs, JAVA_OPTS=-Dcom.sun.management.jmxremote.port=8089 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false]-->
-        <!--portBindings: [8089/tcp, 8080/tcp]-->
-    <!--</property>-->
-    <!--&lt;!&ndash;@formatter:on&ndash;&gt;-->
-  <!--</extension>-->
+    <property name="serverUri">http://Boot2Docker:2376</property>
+    <!--@formatter:off-->
+    <property name="dockerContainers">
+      tomee:
+        image: andygeede/webprofile
+        exposedPorts: [8089/tcp]
+        await:
+          strategy: polling
+        env: [JAVA_OPTS=-Dcom.sun.management.jmxremote.port=8089 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false]
+        portBindings: [8089/tcp, 8080/tcp]
+    </property>
+    <!--@formatter:on-->
+  </extension>
 
   <!-- if you decided to use tomee adapter in the pom-->
   <container qualifier="tomee" default="true">
     <configuration>
-      <property name="classifier">plus</property>
+      <property name="classifier">webprofile</property>
       <property name="httpPort">8080</property>
       <property name="stopPort">-1</property>
       <property name="ajpPort">-1</property>
@@ -50,6 +51,8 @@
       <property name="deployerProperties">
         openejb.deployer.binaries.use=true
       </property>
+      <property name="dir">target/apache-tomee-remote</property>
+      <property name="appWorkingDir">target/arquillian-test-working-dir</property>
     </configuration>
   </container>
 
