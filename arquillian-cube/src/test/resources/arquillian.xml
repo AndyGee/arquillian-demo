@@ -23,26 +23,28 @@
 
   <extension qualifier="docker">
     <property name="serverVersion">1.18</property>
-    <property name="serverUri">http://localhost:2376</property>
+    <property name="serverUri">http://192.168.59.103:2376</property>
     <!--@formatter:off-->
     <property name="dockerContainers">
       tomcat:
         image: tutum/tomcat:7.0
-        exposedPorts: [8089/tcp]
+        exposedPorts: [8089/tcp,8080/tcp]
         await:
-          strategy: polling
+          strategy: static
+          ip: localhost
+          ports: [8080]
         env: [TOMCAT_PASS=mypass, JAVA_OPTS=-Dcom.sun.management.jmxremote.port=8089 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false]
-        portBindings: [8089/tcp, 8080/tcp]
+        portBindings: [8089->8089/tcp,8080->8080/tcp]
     </property>
      <!--@formatter:on-->
   </extension>
 
   <container qualifier="tomcat" default="true">
     <configuration>
-      <property name="host">localhost</property>
+      <property name="host">192.168.59.103</property>
       <property name="httpPort">8080</property>
       <property name="user">admin</property>
-      <property name="pass">mypass</property>
+      <property name="pass">jE0NBfg0ftt3</property>
     </configuration>
   </container>
 
