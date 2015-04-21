@@ -22,7 +22,7 @@
   <groupId>com.tomitribe</groupId>
   <artifactId>arquillian-cube</artifactId>
   <version>1.0.0-SNAPSHOT</version>
-  <packaging>war</packaging>
+  <packaging>jar</packaging>
   <name>arquillian-cube TomEE Webapp</name>
   <url>http://tomee.apache.org</url>
 
@@ -36,7 +36,13 @@
 
   <dependencies>
 
-    <!-- Test with TomEE and Arquillian -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.12</version>
+      <scope>test</scope>
+    </dependency>
+
     <dependency>
       <groupId>org.jboss.arquillian.junit</groupId>
       <artifactId>arquillian-junit-container</artifactId>
@@ -47,48 +53,14 @@
     <dependency>
       <groupId>org.arquillian.cube</groupId>
       <artifactId>arquillian-cube-docker</artifactId>
-      <version>1.0.0.Final-SNAPSHOT</version>
-      <scope>test</scope>
-      <exclusions>
-        <exclusion>
-          <artifactId>slf4j-simple</artifactId>
-          <groupId>org.slf4j</groupId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.openejb</groupId>
-      <artifactId>arquillian-tomee-remote</artifactId>
-      <version>${version.tomee}</version>
+      <version>1.0.0.Alpha5</version>
       <scope>test</scope>
     </dependency>
 
     <dependency>
-      <groupId>org.apache.openejb</groupId>
-      <artifactId>javaee-api</artifactId>
-      <version>6.0-6</version>
-      <scope>provided</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.openjpa</groupId>
-      <artifactId>openjpa</artifactId>
-      <version>${version.openjpa}</version>
-      <scope>provided</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.openejb</groupId>
-      <artifactId>openejb-client</artifactId>
-      <version>${version.openejb}</version>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.11</version>
+      <groupId>org.jboss.arquillian.container</groupId>
+      <artifactId>arquillian-tomcat-remote-7</artifactId>
+      <version>1.0.0.CR7</version>
       <scope>test</scope>
     </dependency>
 
@@ -96,10 +68,6 @@
 
   <build>
 
-    <!--
-    Defines plugin versions for this project
-    and any modules that may be added
-    -->
     <pluginManagement>
       <plugins>
         <plugin>
@@ -111,21 +79,6 @@
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-surefire-plugin</artifactId>
           <version>2.18.1</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-war-plugin</artifactId>
-          <version>2.6</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.openejb.maven</groupId>
-          <artifactId>tomee-maven-plugin</artifactId>
-          <version>${version.tomee}</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.openjpa</groupId>
-          <artifactId>openjpa-maven-plugin</artifactId>
-          <version>${version.openjpa}</version>
         </plugin>
       </plugins>
     </pluginManagement>
@@ -143,56 +96,7 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
       </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-war-plugin</artifactId>
-        <configuration>
-          <failOnMissingWebXml>false</failOnMissingWebXml>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.openejb.maven</groupId>
-        <artifactId>tomee-maven-plugin</artifactId>
-        <configuration>
-          <context>ROOT</context>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.openjpa</groupId>
-        <artifactId>openjpa-maven-plugin</artifactId>
-        <configuration>
-          <includes>**/entities/*.class</includes>
-          <excludes>**/entities/XML*.class</excludes>
-          <addDefaultConstructor>true</addDefaultConstructor>
-          <enforcePropertyRestrictions>true</enforcePropertyRestrictions>
-        </configuration>
-        <executions>
-          <execution>
-            <id>enhancer</id>
-            <phase>process-classes</phase>
-            <goals>
-              <goal>enhance</goal>
-            </goals>
-          </execution>
-        </executions>
-        <dependencies>
-          <dependency>
-            <groupId>org.apache.openjpa</groupId>
-            <artifactId>openjpa</artifactId>
-            <!-- Set this version to be the same as the version used in your runtime -->
-            <version>${version.openjpa}</version>
-          </dependency>
-        </dependencies>
-      </plugin>
     </plugins>
   </build>
-
-  <repositories>
-    <repository>
-      <id>apache-snapshot</id>
-      <name>Apache Snapshot Repository</name>
-      <url>https://repository.apache.org/content/groups/snapshots/</url>
-    </repository>
-  </repositories>
 
 </project>

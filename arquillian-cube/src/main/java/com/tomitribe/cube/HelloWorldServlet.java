@@ -8,17 +8,7 @@
  * U.S. Copyright Office.
  * <p/>
  */
-package com.tomitribe.application;
+package com.tomitribe.cube;
 
-import com.tomitribe.entities.Book;
-
-import javax.ejb.Remote;
-import java.util.List;
-
-@Remote
-public interface IBookService {
-
-    Book addBook(Book book);
-
-    List<Book> getAllBooks();
+public class HelloWorldServlet {
 }
