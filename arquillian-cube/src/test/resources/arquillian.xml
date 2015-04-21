@@ -40,11 +40,6 @@
     <!--@formatter:on-->
   </extension>
 
-  <container qualifier="tomee" default="true">
-    <configuration>
-      <property name="dir">target/apache-tomee-remote</property>
-      <property name="appWorkingDir">target/arquillian-test-working-dir</property>
-    </configuration>
-  </container>
+  <container qualifier="tomee" default="true"/>
 
 </arquillian>

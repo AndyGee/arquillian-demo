@@ -78,8 +78,6 @@
       <scope>provided</scope>
     </dependency>
 
-
-
     <dependency>
       <groupId>org.apache.openejb</groupId>
       <artifactId>openejb-client</artifactId>

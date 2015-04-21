@@ -30,14 +30,13 @@ public class BookService {
     @PersistenceContext(unitName = "book-pu")
     private EntityManager entityManager;
 
-    public void addBook(Book book)
-    {
-      entityManager.persist(book);
+    public void addBook(final Book book) {
+        entityManager.persist(book);
+        entityManager.flush();
     }
 
-    public List<Book> getAllBooks()
-    {
-        CriteriaQuery<Book> cq = entityManager.getCriteriaBuilder().createQuery(Book.class);
+    public List<Book> getAllBooks() {
+        final CriteriaQuery<Book> cq = entityManager.getCriteriaBuilder().createQuery(Book.class);
         cq.select(cq.from(Book.class));
         return entityManager.createQuery(cq).getResultList();
     }

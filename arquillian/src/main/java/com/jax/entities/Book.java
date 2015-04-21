@@ -16,7 +16,10 @@
  */
 package com.jax.entities;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
 public class Book {
@@ -29,7 +32,7 @@ public class Book {
         return bookId;
     }
 
-    public void setBookId(int bookId) {
+    public void setBookId(final int bookId) {
         this.bookId = bookId;
     }
 
@@ -37,7 +40,7 @@ public class Book {
         return bookTitle;
     }
 
-    public void setBookTitle(String bookName) {
+    public void setBookTitle(final String bookName) {
         this.bookTitle = bookName;
     }
 
