@@ -24,13 +24,14 @@
 
   <extension qualifier="docker">
     <property name="serverVersion">1.18</property>
-    <!--<property name="serverUri">http://192.168.59.103:2376</property>-->
-    <property name="serverUri">http://Boot2Docker:2376</property>
+    <!--<property name="serverUri">http://boot2docker:2376</property>-->
+    <property name="serverUri">http://192.168.59.103:2376</property>
+    <property name="boot2DockerPath">D:/programs/boot2docker/boot2docker.exe</property>
     <!--@formatter:off-->
     <property name="dockerContainers">
       tomee:
         image: andygeede/webprofile
-        exposedPorts: [8089/tcp]
+        exposedPorts: [8089/tcp, 8080/tcp, 5432/tcp, 5000/tcp]
         await:
           strategy: polling
         env: [JAVA_OPTS=-Dcom.sun.management.jmxremote.port=8089 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false]
@@ -39,18 +40,8 @@
     <!--@formatter:on-->
   </extension>
 
-  <!-- if you decided to use tomee adapter in the pom-->
   <container qualifier="tomee" default="true">
     <configuration>
-      <property name="classifier">webprofile</property>
-      <property name="httpPort">8080</property>
-      <property name="stopPort">-1</property>
-      <property name="ajpPort">-1</property>
-      <property name="version">1.7.1</property>
-      <property name="properties"/>
-      <property name="deployerProperties">
-        openejb.deployer.binaries.use=true
-      </property>
       <property name="dir">target/apache-tomee-remote</property>
       <property name="appWorkingDir">target/arquillian-test-working-dir</property>
     </configuration>

@@ -16,11 +16,15 @@
  */
 package com.jax;
 
+import com.jax.application.BookService;
+import com.jax.entities.Book;
+import com.jax.presentation.BookBean;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
@@ -28,15 +32,18 @@ public class ArquillianSimple {
 
     @Deployment
     public static WebArchive deploy() {
-        return ShrinkWrap.create(WebArchive.class, TestArquillianBasic.class.getName() + ".war")
-                //Name is just convenient
 
+        return ShrinkWrap.create(WebArchive.class
+                , ArquillianSimple.class.getName() + ".war")
                 .addClasses(
-                        EjbStateful.class,
-                        EjbSingleton.class,
-                        EjbStateless.class
-                ) //Add our classes to test, and note that we did not include interfaces...
+                        BookService.class,
+                        Book.class,
+                        BookBean.class
+                ).addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
+    }
 
-                .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml"); //Turn on CDI
+    @Test
+    public void test(){
+
     }
 }

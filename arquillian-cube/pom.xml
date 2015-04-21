@@ -35,6 +35,35 @@
   </properties>
 
   <dependencies>
+
+    <!-- Test with TomEE and Arquillian -->
+    <dependency>
+      <groupId>org.jboss.arquillian.junit</groupId>
+      <artifactId>arquillian-junit-container</artifactId>
+      <version>1.1.8.Final</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.arquillian.cube</groupId>
+      <artifactId>arquillian-cube-docker</artifactId>
+      <version>1.0.0.Final-SNAPSHOT</version>
+      <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>slf4j-simple</artifactId>
+          <groupId>org.slf4j</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.openejb</groupId>
+      <artifactId>arquillian-tomee-remote</artifactId>
+      <version>${version.tomee}</version>
+      <scope>test</scope>
+    </dependency>
+
     <dependency>
       <groupId>org.apache.openejb</groupId>
       <artifactId>javaee-api</artifactId>
@@ -49,32 +78,7 @@
       <scope>provided</scope>
     </dependency>
 
-    <!-- Test with TomEE and Arquillian -->
-    <dependency>
-      <groupId>org.apache.openejb</groupId>
-      <artifactId>arquillian-tomee-remote</artifactId>
-      <version>${version.tomee}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.arquillian.junit</groupId>
-      <artifactId>arquillian-junit-container</artifactId>
-      <version>1.1.8.Final</version>
-      <scope>test</scope>
-    </dependency>
 
-    <dependency>
-      <groupId>org.arquillian.cube</groupId>
-      <artifactId>arquillian-cube-docker</artifactId>
-      <version>1.0.0.Alpha5</version>
-      <scope>test</scope>
-      <exclusions>
-        <exclusion>
-          <artifactId>slf4j-simple</artifactId>
-          <groupId>org.slf4j</groupId>
-        </exclusion>
-      </exclusions>
-    </dependency>
 
     <dependency>
       <groupId>org.apache.openejb</groupId>

@@ -16,9 +16,59 @@
  */
 package com.jax;
 
+import com.jax.application.BookService;
+import com.jax.entities.Book;
+import com.jax.presentation.BookBean;
+import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.shrinkwrap.api.Filters;
+import org.jboss.shrinkwrap.api.GenericArchive;
+import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.EmptyAsset;
+import org.jboss.shrinkwrap.api.importer.ExplodedImporter;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.junit.runner.RunWith;
+
+import java.io.File;
+import java.util.Arrays;
+import java.util.Collection;
 
 @RunWith(Arquillian.class)
 public class ArquillianLight {
+
+    @Deployment
+    public static WebArchive deploy() {
+
+        final Collection<String> dependencies = Arrays.asList(new String[]{
+                "javax.servlet:jstl",
+                "taglibs:standard",
+                "commons-lang:commons-lang"
+        });
+
+        final File[] libs = Maven.resolver()
+                .loadPomFromFile("pom.xml").resolve(dependencies)
+                .withTransitivity().asFile();
+
+
+        final WebArchive war = ShrinkWrap.create(WebArchive.class, ArquillianLight.class.getName() + ".war")
+                //Name is just convenient
+
+                .addClasses(
+                        BookService.class,
+                        Book.class,
+                        BookBean.class
+                )
+
+                .addAsLibraries(libs)
+
+                .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
+
+        //Merge in our complete webapp
+        war.merge(ShrinkWrap.create(GenericArchive.class).as(ExplodedImporter.class)
+                        .importDirectory("src/main/webapp").as(GenericArchive.class),
+                "/", Filters.includeAll());
+
+        return war; //Turn on CDI
+    }
 }
