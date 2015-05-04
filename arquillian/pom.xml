@@ -54,7 +54,7 @@
     <!-- to test with TomEE and Arquillian-->
     <dependency>
       <groupId>org.apache.openejb</groupId>
-      <artifactId>arquillian-tomee-embedded</artifactId>
+      <artifactId>arquillian-tomee-remote</artifactId>
       <version>1.7.1</version>
       <scope>test</scope>
     </dependency>
@@ -82,9 +82,30 @@
     </dependency>
 
     <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpclient</artifactId>
+      <version>4.4</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.11</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.openjpa</groupId>
+      <artifactId>openjpa</artifactId>
+      <version>${version.openjpa}</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.openejb</groupId>
+      <artifactId>openejb-client</artifactId>
+      <version>4.7.1</version>
       <scope>test</scope>
     </dependency>
 
@@ -129,6 +150,9 @@
           <groupId>org.apache.openejb.maven</groupId>
           <artifactId>tomee-maven-plugin</artifactId>
           <version>1.7.1</version>
+          <configuration>
+            <tomeeClassifier>plus</tomeeClassifier>
+          </configuration>
         </plugin>
         <plugin>
           <groupId>org.apache.openjpa</groupId>

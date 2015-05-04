@@ -16,6 +16,9 @@
  */
 package com.jax.servlet;
 
+import com.jax.application.IBookService;
+
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -27,9 +30,14 @@ import java.io.PrintWriter;
 @WebServlet("/HelloWorld")
 public class HelloWorldServlet extends HttpServlet {
 
+    @Inject
+    private IBookService service;
+
     @Override
     protected void doGet(final HttpServletRequest req, final HttpServletResponse resp) throws ServletException, IOException {
         final PrintWriter writer = resp.getWriter();
+
+        service.getAllBooks();
         writer.println("Hello World");
     }
 }

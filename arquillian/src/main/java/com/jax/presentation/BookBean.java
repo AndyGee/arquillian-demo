@@ -16,7 +16,7 @@
  */
 package com.jax.presentation;
 
-import com.jax.application.BookService;
+import com.jax.application.IBookService;
 import com.jax.entities.Book;
 
 import javax.inject.Inject;
@@ -27,7 +27,7 @@ import java.util.List;
 public class BookBean {
 
     @Inject
-    private BookService bookService;
+    private IBookService bookService;
     private List<Book> booksAvailable;
     private String bookTitle;
 

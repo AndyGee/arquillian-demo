@@ -17,6 +17,7 @@
 package com.jax;
 
 import com.jax.application.BookService;
+import com.jax.application.IBookService;
 import com.jax.entities.Book;
 import com.jax.presentation.BookBean;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -40,6 +41,7 @@ public class ArquillianSimpleTest {
         return ShrinkWrap.create(WebArchive.class
                 , ArquillianSimpleTest.class.getName() + ".war")
                 .addClasses(
+                        IBookService.class,
                         BookService.class,
                         Book.class,
                         BookBean.class
@@ -49,10 +51,10 @@ public class ArquillianSimpleTest {
     }
 
     @Inject
-    protected BookService service;
+    protected IBookService service;
 
     @Test
-    public void test(){
+    public void test() {
 
         final Book b = new Book();
         final String bookName = "Romeo and Juliet";
@@ -63,7 +65,7 @@ public class ArquillianSimpleTest {
         boolean found = false;
 
         for (final Book book : allBooks) {
-            if(bookName.equals(book.getBookTitle())){
+            if (bookName.equals(book.getBookTitle())) {
                 found = true;
                 break;
             }

@@ -17,6 +17,7 @@
 package com.jax;
 
 import com.jax.application.BookService;
+import com.jax.application.IBookService;
 import com.jax.entities.Book;
 import com.jax.presentation.BookBean;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -59,6 +60,7 @@ public class ArquillianLightTest {
                 //Name is just convenient
 
                 .addClasses(
+                        IBookService.class,
                         BookService.class,
                         Book.class,
                         BookBean.class
@@ -79,13 +81,13 @@ public class ArquillianLightTest {
     }
 
     @Inject
-    protected BookService service;
+    protected IBookService service;
 
     final String bookName = "Romeo and Juliet";
 
     @Test
     @InSequence(1)
-    public void testAdd(){
+    public void testAdd() {
 
         final Book b = new Book();
         b.setBookTitle(bookName);
@@ -94,13 +96,13 @@ public class ArquillianLightTest {
 
     @Test
     @InSequence(2)
-    public void testGetAllBooks(){
+    public void testGetAllBooks() {
 
         final List<Book> allBooks = service.getAllBooks();
         boolean found = false;
 
         for (final Book book : allBooks) {
-            if(bookName.equals(book.getBookTitle())){
+            if (bookName.equals(book.getBookTitle())) {
                 found = true;
                 break;
             }

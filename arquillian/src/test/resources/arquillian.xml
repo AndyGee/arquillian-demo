@@ -24,11 +24,12 @@
 
   <container qualifier="tomee" default="true">
     <configuration>
+      <property name="classifier">plus</property>
       <property name="httpPort">-1</property>
       <property name="stopPort">-1</property>
       <property name="ajpPort">-1</property>
-      <property name="version">${tomee.version}</property>
-      <property name="properties" />
+      <property name="version">1.7.1</property>
+      <property name="properties"/>
     </configuration>
   </container>
 

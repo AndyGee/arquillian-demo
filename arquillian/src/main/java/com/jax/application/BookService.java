@@ -19,22 +19,36 @@ package com.jax.application;
 import com.jax.entities.Book;
 
 import javax.ejb.Stateless;
+import javax.enterprise.inject.Default;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import java.util.List;
 
+import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
+import static javax.ws.rs.core.MediaType.APPLICATION_XML;
+
+@Default
 @Stateless
-public class BookService {
+@Path("/myrest")
+public class BookService implements IBookService {
 
     @PersistenceContext(unitName = "book-pu")
     private EntityManager entityManager;
 
+    @Override
     public void addBook(final Book book) {
         entityManager.persist(book);
         entityManager.flush();
     }
 
+    @Override
+    @Path("complex")
+    @GET
+    @Produces({APPLICATION_JSON, APPLICATION_XML})
     public List<Book> getAllBooks() {
         final CriteriaQuery<Book> cq = entityManager.getCriteriaBuilder().createQuery(Book.class);
         cq.select(cq.from(Book.class));
