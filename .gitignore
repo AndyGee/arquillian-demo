@@ -1,0 +1,8 @@
+/arquillian/.idea
+/arquillian/target
+/arquillian/*.iml
+arquillian-cube/.idea
+arquillian-cube/target
+arquillian-cube/*.iml
+.idea
+slides/org.jacoco.examples.maven.iml
