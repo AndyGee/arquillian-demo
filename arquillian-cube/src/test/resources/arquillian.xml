@@ -31,9 +31,8 @@
         exposedPorts: [8080/tcp,8089/tcp,5432/udp]
         await:
           strategy: static
-          ip: localhost
+          ip: 192.168.59.103
           ports: [8080]
-        env: [TOMCAT_PASS=mypass, JAVA_OPTS=-Dcom.sun.management.jmxremote.port=8089 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false]
         portBindings: [8080/tcp,8089/tcp,5432/udp]
     </property>
      <!--@formatter:on-->
@@ -43,8 +42,8 @@
     <configuration>
       <property name="host">192.168.59.103</property>
       <property name="httpPort">8080</property>
-      <property name="user">admin</property>
-      <property name="pass">jE0NBfg0ftt3</property>
+      <property name="user">tomee</property>
+      <property name="pass">unsecured</property>
     </configuration>
   </container>
 

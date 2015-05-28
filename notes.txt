@@ -14,7 +14,8 @@ mvn archetype:generate -DarchetypeGroupId=org.apache.openejb.maven -DarchetypeAr
 Docker
 ------
 docker -H tcp://192.168.59.103:2375 build -t andygeede/webprofile .
-docker rm $(docker ps -aq)
+docker rm $(docker stop $(docker ps -a -q))
+docker rm $(docker kill $(docker ps -a -q))
 
 Tests
 -----

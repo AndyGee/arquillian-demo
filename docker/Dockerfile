@@ -17,7 +17,9 @@ RUN curl -SL http://apache.rediris.es/tomee/tomee-1.7.2/apache-tomee-1.7.2-webpr
 	&& rm bin/*.bat \
 	&& rm tomee.tar.gz*
 
-COPY ./tomcat-users.xml /usr/local/tomee/conf
+RUN mv /usr/local/tomee/conf/tomcat-users.xml /usr/local/tomee/conf/tomcat-users.xml.original
+
+COPY ./tomcat-users.xml /usr/local/tomee/conf/
 
 EXPOSE 8080
 

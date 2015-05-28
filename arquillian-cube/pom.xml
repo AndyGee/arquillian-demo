@@ -50,6 +50,7 @@
       <scope>test</scope>
     </dependency>
 
+    <!-- This enables the Arquillian Cube extension in the arquillian.xml configuration file -->
     <dependency>
       <groupId>org.arquillian.cube</groupId>
       <artifactId>arquillian-cube-docker</artifactId>
