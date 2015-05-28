@@ -27,6 +27,7 @@ import static javax.ws.rs.core.MediaType.APPLICATION_XML;
 
 @Specializes
 @Stateless
+@Path("/myrest")
 public class MockBookService extends BookService implements IBookService {
 
     @Override

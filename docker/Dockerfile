@@ -1,5 +1,7 @@
 FROM java:7-jre
 
+# Unsecured Apache TomEE WebProfile 8080 + PostgreSQL 9.3 5432 Demo
+
 # add our user and group first to make sure their IDs get assigned consistently, regardless of whatever dependencies get added
 RUN groupadd -r tomee && useradd -r --create-home -g tomee tomee
 
@@ -10,10 +12,12 @@ WORKDIR /usr/local/tomee
 USER tomee
 
 
-RUN curl -SL http://apache.rediris.es/tomee/tomee-1.7.1/apache-tomee-1.7.1-webprofile.tar.gz -o tomee.tar.gz \
+RUN curl -SL http://apache.rediris.es/tomee/tomee-1.7.2/apache-tomee-1.7.2-webprofile.tar.gz -o tomee.tar.gz \
 	&& tar -xvf tomee.tar.gz --strip-components=1 \
 	&& rm bin/*.bat \
 	&& rm tomee.tar.gz*
+
+COPY ./tomcat-users.xml /usr/local/tomee/conf
 
 EXPOSE 8080
 

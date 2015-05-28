@@ -1,0 +1,22 @@
+boot2docker ssh
+
+sudo su -
+
+vi /var/lib/boot2docker/profile
+
+Type the following:
+DOCKER_TLS="no"
+
+Press the ESC key and type ZZ to save and quit vi
+
+/etc/init.d/docker restart
+
+exit
+
+exit
+
+boot2docker stop
+
+boot2docker start
+
+curl http://192.168.59.103:2375/_ping
