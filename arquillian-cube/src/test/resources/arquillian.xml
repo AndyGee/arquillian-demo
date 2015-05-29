@@ -23,7 +23,8 @@
 
   <extension qualifier="docker">
     <property name="serverVersion">1.18</property>
-    <property name="serverUri">http://192.168.59.103:2375</property>
+    <!--<property name="serverUri">http://192.168.59.103:2375</property>-->
+    <property name="connectionMode">STARTORCONNECTANDLEAVE</property>
     <!--@formatter:off-->
     <property name="dockerContainers">
       tomcat:
@@ -31,9 +32,10 @@
         exposedPorts: [8080/tcp,8089/tcp,5432/udp]
         await:
           strategy: static
-          ip: 192.168.59.103
+          ip: localhost
           ports: [8080]
-        portBindings: [8080/tcp,8089/tcp,5432/udp]
+        env: [JAVA_OPTS=-Dcom.sun.management.jmxremote.port=8089 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false]
+        portBindings: [8080/tcp,8080/tcp]
     </property>
      <!--@formatter:on-->
   </extension>

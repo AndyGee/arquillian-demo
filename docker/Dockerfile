@@ -22,6 +22,7 @@ RUN mv /usr/local/tomee/conf/tomcat-users.xml /usr/local/tomee/conf/tomcat-users
 COPY ./tomcat-users.xml /usr/local/tomee/conf/
 
 EXPOSE 8080
+EXPOSE 8089
 
 USER root
 

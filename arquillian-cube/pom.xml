@@ -29,18 +29,33 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <version.openjpa>2.3.0</version.openjpa>
-    <version.tomee>1.7.1</version.tomee>
-    <version.openejb>4.7.1</version.openejb>
+    <version.openjpa>2.4.0</version.openjpa>
+    <version.tomee>1.7.2</version.tomee>
+    <version.openejb>4.7.2</version.openejb>
   </properties>
 
   <dependencies>
+
+    <dependency>
+      <groupId>org.jboss.arquillian</groupId>
+      <artifactId>arquillian-bom</artifactId>
+      <version>1.1.8.Final</version>
+      <scope>import</scope>
+      <type>pom</type>
+    </dependency>
 
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.12</version>
       <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.tomcat</groupId>
+      <artifactId>tomcat-servlet-api</artifactId>
+      <version>7.0.62</version>
+      <scope>provided</scope>
     </dependency>
 
     <dependency>
@@ -59,17 +74,10 @@
     </dependency>
 
     <dependency>
-      <groupId>org.jboss.arquillian.container</groupId>
-      <artifactId>arquillian-tomcat-remote-7</artifactId>
-      <version>1.0.0.CR7</version>
+      <groupId>org.apache.openejb</groupId>
+      <artifactId>arquillian-tomee-remote</artifactId>
+      <version>${version.tomee}</version>
       <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.tomcat</groupId>
-      <artifactId>tomcat-servlet-api</artifactId>
-      <version>7.0.59</version>
-      <scope>provided</scope>
     </dependency>
 
   </dependencies>
