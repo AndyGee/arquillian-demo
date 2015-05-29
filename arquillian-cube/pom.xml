@@ -78,6 +78,12 @@
       <artifactId>arquillian-tomee-remote</artifactId>
       <version>${version.tomee}</version>
       <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>slf4j-jdk14</artifactId>
+          <groupId>org.slf4j</groupId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
   </dependencies>

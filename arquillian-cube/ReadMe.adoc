@@ -57,6 +57,15 @@ boot2docker stop
 boot2docker start
 ----
 
+You will see something like the following. To enable access to the Docker daemon from any console you can add these
+settings to your local OS environment variables:
+----
+To connect the Docker client to the Docker daemon, please set:
+    export DOCKER_HOST=tcp://192.168.59.103:2375
+    export DOCKER_CERT_PATH=''
+    unset DOCKER_TLS_VERIFY
+----
+
 Run a quick test:
 ----
 curl http://192.168.59.103:2375/_ping
@@ -65,6 +74,8 @@ This should respond simply with 'OK'
 
 Note: If you do not have ´curl´ on Windows then you can download it http://curl.haxx.se/dlwiz/?type=bin&os=Win64[here]. It is a very useful
 tool to have.
+
+
 
 == Getting Started - The Usual POM Suspects
 
