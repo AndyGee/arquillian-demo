@@ -34,15 +34,19 @@
     <version.openejb>4.7.2</version.openejb>
   </properties>
 
-  <dependencies>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.jboss.arquillian</groupId>
+        <artifactId>arquillian-bom</artifactId>
+        <version>1.1.8.Final</version>
+        <scope>import</scope>
+        <type>pom</type>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
-    <dependency>
-      <groupId>org.jboss.arquillian</groupId>
-      <artifactId>arquillian-bom</artifactId>
-      <version>1.1.8.Final</version>
-      <scope>import</scope>
-      <type>pom</type>
-    </dependency>
+  <dependencies>
 
     <dependency>
       <groupId>junit</groupId>
