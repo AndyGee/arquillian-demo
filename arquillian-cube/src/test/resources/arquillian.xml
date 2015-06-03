@@ -22,30 +22,31 @@
   http://jboss.org/schema/arquillian/arquillian_1_0.xsd">
 
   <extension qualifier="docker">
-    <property name="serverVersion">1.18</property>
-    <property name="serverUri">http://192.168.59.103:2375</property>
+    <property name="serverVersion">1.12</property>
+    <property name="serverUri">http://boot2docker:2375</property>
     <property name="connectionMode">STARTORCONNECTANDLEAVE</property>
     <!--@formatter:off-->
     <property name="dockerContainers">
-      tomcat:
+      tomee:
         image: andygeede/webprofile
-        alwaysPull: true
-        exposedPorts: [8080/tcp,8089/tcp,5432/udp]
         await:
-          strategy: static
-          ip: localhost
-          ports: [8080]
-        env: [JAVA_OPTS=-Dcom.sun.management.jmxremote.port=8089 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false]
-        portBindings: [8080/tcp,8089/tcp]
+          strategy: polling
+        env: [JAVA_OPTS=-Djava.rmi.server.hostname=dockerServerIp -Dcom.sun.management.jmxremote.rmi.port=8088 -Dcom.sun.management.jmxremote.port=8089 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false]
+        portBindings: [8089/tcp,8088/tcp,8080->8080/tcp,5432/udp]
     </property>
      <!--@formatter:on-->
   </extension>
 
+  <!--
+  The qualifier name is the same as the extension qualifier.
+  
+  -->
   <container qualifier="tomee" default="true">
     <configuration>
       <property name="host">192.168.59.103</property>
       <property name="httpPort">8080</property>
       <property name="deployerProperties">
+        openejb.deployer.binaries.use=true
         java.naming.security.principal=tomee
         java.naming.security.credentials=unsecured
       </property>

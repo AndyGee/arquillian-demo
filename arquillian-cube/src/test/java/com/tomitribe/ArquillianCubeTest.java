@@ -28,9 +28,12 @@ import org.junit.runner.RunWith;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 
 /**
  * Run the test using the Arquillian Cube test extension
@@ -38,13 +41,26 @@ import java.net.URL;
 @RunWith(Arquillian.class)
 public class ArquillianCubeTest {
 
+    static {
+        final InputStream inputStream = ArquillianCubeTest.class.getResourceAsStream("/logging.properties");
+        try {
+            LogManager.getLogManager().readConfiguration(inputStream);
+        } catch (final IOException e) {
+            Logger.getAnonymousLogger().severe("Could not load default logging.properties file");
+            Logger.getAnonymousLogger().severe(e.getMessage());
+        }
+    }
+
     @Deployment(testable = false)
     public static WebArchive create() {
         return ShrinkWrap.create(WebArchive.class, "hello.war").addClass(HelloWorldServlet.class);
     }
 
+    @ArquillianResource
+    private URL resource;
+
     @Test
-    public void test(@ArquillianResource final URL resource) throws IOException {
+    public void test() throws IOException {
 
         final URL obj = new URL(resource, "HelloWorld");
         final HttpURLConnection con = (HttpURLConnection) obj.openConnection();
