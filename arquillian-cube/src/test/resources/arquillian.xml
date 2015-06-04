@@ -21,6 +21,12 @@
             xsi:schemaLocation="http://jboss.org/schema/arquillian
   http://jboss.org/schema/arquillian/arquillian_1_0.xsd">
 
+  <!--
+    Defines the Cube extension configuration.
+    Full documentation can be found here: https://github.com/arquillian/arquillian-cube
+
+    NOTE: The 'dockerContainers' formatting/indentation is critical!
+  -->
   <extension qualifier="docker">
     <property name="serverVersion">1.12</property>
     <property name="serverUri">http://boot2docker:2375</property>
@@ -30,7 +36,10 @@
       tomee:
         image: andygeede/webprofile
         await:
-          strategy: polling
+          strategy: static
+          ip: 192.168.59.103
+          ports: [8080, 8089]
+          iterations: 100
         env: [JAVA_OPTS=-Djava.rmi.server.hostname=dockerServerIp -Dcom.sun.management.jmxremote.rmi.port=8088 -Dcom.sun.management.jmxremote.port=8089 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false]
         portBindings: [8089/tcp,8088/tcp,8080->8080/tcp,5432/udp]
     </property>
@@ -38,8 +47,10 @@
   </extension>
 
   <!--
-  The qualifier name is the same as the extension qualifier.
-  
+    The qualifier name is the same as the extension qualifier.
+    As this example is using 'boot2docker' it is necessary to
+    specify the ip-address. This is usually 192.168.59.103,
+    boot2docker will display the actual ip-address on startup.
   -->
   <container qualifier="tomee" default="true">
     <configuration>

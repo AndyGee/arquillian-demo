@@ -18,12 +18,23 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+/**
+ * Defines a very simple servlet endpoint
+ */
 @WebServlet("/HelloWorld")
 public class HelloWorldServlet extends HttpServlet {
 
+    /**
+     * Writes a simple response string
+     *
+     * @param req HttpServletRequest
+     * @param res HttpServletResponse
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
-    protected void doGet(final HttpServletRequest req, final HttpServletResponse resp) throws ServletException, IOException {
-        final PrintWriter writer = resp.getWriter();
+    protected void doGet(final HttpServletRequest req, final HttpServletResponse res) throws ServletException, IOException {
+        final PrintWriter writer = res.getWriter();
         writer.println("Hello World");
     }
 }

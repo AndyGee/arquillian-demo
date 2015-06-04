@@ -1,4 +1,4 @@
-= Arquillian Cube: Unit Tests Against Docker Images
+= Arquillian Cube: 'Production Near' Unit Tests Against Docker Images
 Andy Gumbrecht, Senior Software Developer, Tomitribe
 
 Blog source code can be found https://github.com/AndyGee/JAX/tree/master/arquillian-cube[here]
@@ -9,16 +9,18 @@ This article assumes that you are already familiar with the http://arquillian.or
 should pop over to the http://arquillian.org[Arquillian site] and learn about the http://arquillian.org/invasion/[invasion].
 
 Arquillian Cube is an http://arquillian.org/modules/cube-extension/[extension] led by https://twitter.com/alexsotob[@alexsotob]
-that enables Arquillian based unit tests against https://www.docker.com/[Docker] images, with as little overhead as possible.
+that enables what I like to call 'Production Near' Arquillian based unit tests against https://www.docker.com/[Docker] images,
+with as little overhead as possible. Do you find yourself having to repeatedly create complex mocked environments to simulate simple JavaEE
+component and or integration tests. Then Cube might be the ticket.
 
 == Disable TLS on Docker 1.3.x for Boot2Docker
 
-If you are using an older version of Docker, or do not require Boot2Docker (Linux), then you can skip the actions in this section.
+If you are using an older version of Docker, or do not require Boot2Docker (eg. Linux), then you can skip the actions in this section.
 Please still read on, as this may affect you should you perform an upgrade in the future.
 
 As of version 1.3.x Docker has switched to using TLS for communication with the Docker API (Secure sockets over HTTPS on port 2376).
 This was an abrupt (undocumented, yet critical) change that breaks many tools that have been written for previous Docker versions.
-This includes Cube.
+This currently includes Cube.
 
 The quickest resolution is to disable/revert TLS for the Docker API until Cube has caught up. To do this follow the steps below:
 
@@ -30,12 +32,12 @@ Gain root permissions:
 ----
 sudo su -
 ----
-Use the http://www.freebsd.org/cgi/man.cgi?query=vi[VI] text editor to edit the profile:
+Use the http://www.freebsd.org/cgi/man.cgi?query=vi[VI] text editor to edit/create the docker profile:
 ----
 vi /var/lib/boot2docker/profile
 ----
 
-Type the following in the editor:
+Type the following into the editor:
 ----
 DOCKER_TLS="no"
 ----
@@ -75,8 +77,6 @@ This should respond simply with 'OK'
 Note: If you do not have ´curl´ on Windows then you can download it http://curl.haxx.se/dlwiz/?type=bin&os=Win64[here]. It is a very useful
 tool to have.
 
-
-
 == Getting Started - The Usual POM Suspects
 
 Using the blog https://github.com/AndyGee/JAX/tree/master/arquillian-cube[source code] as a reference you need to add the Cube
@@ -91,6 +91,8 @@ dependencies to your projects https://github.com/AndyGee/JAX/tree/master/arquill
     </dependency>
 ----
 
+Note: Always check for the latest version.
+
 == The Arquillian Cube Extension
 
 Add the Cube extension to your https://github.com/AndyGee/JAX/tree/master/arquillian-cube/src/test/resources/arquillian.xml[arquillian.xml] configuration file:
@@ -102,29 +104,135 @@ Add the Cube extension to your https://github.com/AndyGee/JAX/tree/master/arquil
                 xsi:schemaLocation="http://jboss.org/schema/arquillian
       http://jboss.org/schema/arquillian/arquillian_1_0.xsd">
 
+      <!--
+        Defines the Cube extension configuration.
+        Full documentation can be found here: https://github.com/arquillian/arquillian-cube
+
+        NOTE: The 'dockerContainers' formatting/indentation is critical!
+      -->
       <extension qualifier="docker">
-        <property name="serverVersion">1.18</property>
-        <property name="serverUri">http://192.168.59.103:2375</property>
+        <property name="serverVersion">1.12</property>
+        <property name="serverUri">http://boot2docker:2375</property>
+        <property name="connectionMode">STARTORCONNECTANDLEAVE</property>
+        <!--@formatter:off-->
         <property name="dockerContainers">
-          tomcat:
+          tomee:
             image: andygeede/webprofile
-            exposedPorts: [8080/tcp,8089/tcp,5432/udp]
             await:
               strategy: static
               ip: 192.168.59.103
-              ports: [8080]
-            portBindings: [8080/tcp,8089/tcp,5432/udp]
+              ports: [8080, 8089]
+              iterations: 100
+            env: [JAVA_OPTS=-Djava.rmi.server.hostname=dockerServerIp -Dcom.sun.management.jmxremote.rmi.port=8088 -Dcom.sun.management.jmxremote.port=8089 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false]
+            portBindings: [8089/tcp,8088/tcp,8080->8080/tcp,5432/udp]
         </property>
+         <!--@formatter:on-->
       </extension>
 
+      <!--
+        The qualifier name is the same as the extension qualifier.
+        As this example is using 'boot2docker' it is necessary to
+        specify the ip-address. This is usually 192.168.59.103,
+        boot2docker will display the actual ip-address on startup.
+      -->
       <container qualifier="tomee" default="true">
         <configuration>
           <property name="host">192.168.59.103</property>
           <property name="httpPort">8080</property>
-          <property name="user">tomee</property>
-          <property name="pass">unsecured</property>
+          <property name="deployerProperties">
+            openejb.deployer.binaries.use=true
+            java.naming.security.principal=tomee
+            java.naming.security.credentials=unsecured
+          </property>
         </configuration>
       </container>
 
     </arquillian>
 ----
+
+There are many options available, simply too many to list in this article. I will address the most important options, but if
+you want to expand on them then please visit the https://github.com/arquillian/arquillian-cube[Cube] site for the full range.
+
+This specifies the docker API version. Cube is known to work with and has been tested on version 1.12
+[source,xml]
+----
+    <property name="serverVersion">1.12</property>
+----
+
+This specifies the docker URI. I am using 'boot2docker', which will be resolved to the actual boot2docker IP-Address.
+The port has also been changed from the default 2376 to reflect the changes made above (TLS), likewise the protocol (http rather than https).
+[source,xml]
+----
+    <property name="serverUri">http://boot2docker:2375</property>
+----
+
+There are various connectionMode options, but I like this one as it bootstraps the docker image and leaves it running for super fast continuation tests.
+If your tests change the state of the image then you may want to use the default option of STARTANDSTOP.
+[source,xml]
+----
+    <property name="connectionMode">STARTORCONNECTANDLEAVE</property>
+----
+
+This is where we define options that relate directly to the docker image that is to be run for the tests.
+It uses a YAML syntax, so formatting and indentations are absolutely critical - Make sure your IDE never reformats it.
+The specified image was built using the dockerfile located https://github.com/AndyGee/JAX/blob/master/docker/Dockerfile[here]. It basically
+fires up a TomEE instance and a PostgreSQL database server (I'll be showing you how to run persistence tests in my next blog).
+[source,xml]
+----
+    <property name="dockerContainers">
+      tomee:
+        image: andygeede/webprofile
+        ...
+----
+
+== Arquillian 'Production Near' Unit Test on a Dockerized Apache TomEE
+
+With the environment in place we can now move on to creating a unit test. IT will look and feel very similar to a standard Arquillian test, which
+is of course the intended idea.
+
+I am going to be testing the simple https://github.com/AndyGee/JAX/blob/master/arquillian-cube/src/main/java/com/tomitribe/cube/HelloWorldServlet.java[HelloWorldServlet.java] servlet.
+
+The test class https://github.com/AndyGee/JAX/blob/master/arquillian-cube/src/test/java/com/tomitribe/ArquillianCubeTest.java[ArquillianCubeTest.java]
+needs to run against the Arquillian test framework. This is done by annotating the test class with:
+[source,java]
+----
+    @RunWith(Arquillian.class)
+    public class ArquillianCubeTest {
+----
+
+Next I define a very simple (as simple as it gets) web application archive which will be deployed on the remote server. Specifying
+@Deployment(testable = false) ensures that the archive is isolated from the actual test class, and is a truly remote deployment:
+[source,java]
+----
+    @Deployment(testable = false)
+    public static WebArchive create() {
+        return ShrinkWrap.create(WebArchive.class, "hello.war").addClass(HelloWorldServlet.class);
+    }
+----
+
+Now for the actual test. Adding the @RunAsClient annotation means that the body of the test will be run within the runtime of the client,
+rather than being deployed and run on the remote server. This is as close to a production environment as we can get, hence the term 'Production Near'.
+[source,java]
+----
+    @Test
+    @RunAsClient
+    public void test() throws IOException {
+----
+
+That is it. You can see the working example by cloning the blog code and running it.
+----
+git clone https://github.com/AndyGee/JAX.git arquillian
+cd arquillian/arquillian-cube
+mvn clean install
+----
+
+With this https://github.com/AndyGee/JAX[project], as a bonus, you will receive several other Arquillian examples ranging from simple to complex.
+
+== Summary
+
+I hope you have enjoyed reading and learning about Arquillian Cube. Cube is not intended to be a replacement for standard Arquillian tests,
+rather it is to compliment the already powerful solution with real combined 'Production Near' functional, integration and unit tests.
+
+The deployed Docker image can be built to represent a true mock of just about any production environment that can be easily shared with developers within
+any enterprise organization. The burden of creating complex mocked environments for simple component and integration tests can be shifted away from individual
+developers to a centralized and more maintainable environment.
