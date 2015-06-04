@@ -193,7 +193,7 @@ Note: The 'tomee:' property relates to the container qualifier:
 
 == Arquillian 'Production Near' Unit Test on a Dockerized Apache TomEE
 
-With the environment in place we can now move on to creating a unit test. IT will look and feel very similar to a standard Arquillian test, which
+With the environment in place we can now move on to creating a unit test. It will look and feel very similar to a standard Arquillian test, which
 is of course the intended idea.
 
 I am going to be testing the simple https://github.com/AndyGee/JAX/blob/master/arquillian-cube/src/main/java/com/tomitribe/cube/HelloWorldServlet.java[HelloWorldServlet.java] servlet.
