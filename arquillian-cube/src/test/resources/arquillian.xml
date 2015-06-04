@@ -47,7 +47,7 @@
   </extension>
 
   <!--
-    The qualifier name is the same as the extension qualifier.
+    The qualifier name relates to the extension dockerContainers property.
     As this example is using 'boot2docker' it is necessary to
     specify the ip-address. This is usually 192.168.59.103,
     boot2docker will display the actual ip-address on startup.
