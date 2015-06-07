@@ -1,17 +1,26 @@
 = Arquillian Cube: 'Production Near' Unit Tests Against Docker Images
 Andy Gumbrecht, Senior Software Developer, Tomitribe
 
-Blog source code can be found https://github.com/AndyGee/JAX/tree/master/arquillian-cube[here]
+This is a detailed followup to an https://github.com/AndyGee/JAX/blob/master/slides/Apache_TomEE_Arquillian.pdf[Arquillian talk] I held
+at https://jax.de/wjax2015/[JAX Germany], having had the honour of being asked to do the talk
+by https://twitter.com/aslakknutsen[Aslak Knutsen @aslakknutsen] (the Arquillian project lead). Aslak provided some useful pointers
+and information to get me up to spec for the talk, so many thanks Aslak.
+
+The entire blog source code can be found on GitHub https://github.com/AndyGee/JAX/tree/master/arquillian-cube[here], so you might want to fork that
+first before reading on.
 
 == What is Arquillian Cube?
 
 This article assumes that you are already familiar with the http://arquillian.org[Arquillian] extensible testing platform. If not, then you
 should pop over to the http://arquillian.org[Arquillian site] and learn about the http://arquillian.org/invasion/[invasion].
 
-Arquillian Cube is an http://arquillian.org/modules/cube-extension/[extension] led by https://twitter.com/alexsotob[@alexsotob]
+Arquillian Cube is an http://arquillian.org/modules/cube-extension/[extension] project led by https://twitter.com/alexsotob[ Alex Soto @alexsotob]
 that enables what I like to call 'Production Near' Arquillian based unit tests against https://www.docker.com/[Docker] images,
 with as little overhead as possible. Do you find yourself having to repeatedly create complex mocked environments to simulate simple JavaEE
 component and or integration tests. Then Cube might be the ticket.
+
+Alex is a star and is always willing to invest time to help. You can read some recent news about him https://www.voxxed.com/blog/2015/06/arquillian-docker-and-testing-in-containers/[here].
+Thanks Alex for this great project.
 
 == Disable TLS on Docker 1.3.x for Boot2Docker
 
