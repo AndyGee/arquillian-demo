@@ -31,7 +31,9 @@ As of version 1.3.x Docker has switched to using TLS for communication with the 
 This was an abrupt (undocumented, yet critical) change that breaks many tools that have been written for previous Docker versions.
 This currently includes Cube.
 
-The quickest resolution is to disable/revert TLS for the Docker API until Cube has caught up. To do this follow the steps below:
+The quickest resolution is to use an older version or disable/revert TLS for the Docker API until things have caught up (I will blog about it as soon as I have time to work on it).
+I chose to disable TLS in my own local environment, as I wanted to use the latest Docker. It was not easy to get information on how to do that
+, so to make life sweet again follow the summarized steps below:
 
 From a console type the following to access the Docker daemon shell:
 ----
@@ -61,15 +63,15 @@ Exit the shell
 ----
 exit
 ----
-Retart the Docker image:
+Restart the Docker image:
 ----
 boot2docker stop
 
 boot2docker start
 ----
 
-You will see something like the following. To enable access to the Docker daemon from any console you can add these
-settings to your local OS environment variables:
+You will see something like the following. To enable access to the Docker daemon from any console you can/should add these
+settings to your local OS environment variables, or copy them for reuse:
 ----
 To connect the Docker client to the Docker daemon, please set:
     export DOCKER_HOST=tcp://192.168.59.103:2375
