@@ -102,7 +102,7 @@ dependencies to your projects https://github.com/AndyGee/JAX/tree/master/arquill
     </dependency>
 ----
 
-Note: Always check for the latest version.
+Note: Always check for the latest version, the project is moving quickly.
 
 == The Arquillian Cube Extension
 
@@ -141,7 +141,7 @@ Add the Cube extension to your https://github.com/AndyGee/JAX/tree/master/arquil
       </extension>
 
       <!--
-        The qualifier name relates to the extension dockerContainers property.
+        The qualifier name relates to the extension dockerContainers property 'tomee:'.
         As this example is using 'boot2docker' it is necessary to
         specify the ip-address. This is usually 192.168.59.103,
         boot2docker will display the actual ip-address on startup.
