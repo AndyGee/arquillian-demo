@@ -164,7 +164,7 @@ Add the Cube extension to your https://github.com/AndyGee/JAX/tree/master/arquil
 There are many options available, simply too many to list in this article. I will address the most important options, but if
 you want to expand on them then please visit the https://github.com/arquillian/arquillian-cube[Cube] site for the full range.
 
-This specifies the docker API version. Cube is known to work with and has been tested on version 1.12
+This specifies the docker API version. Cube is known to work with, and has been tested on, version 1.12
 [source,xml]
 ----
     <property name="serverVersion">1.12</property>
