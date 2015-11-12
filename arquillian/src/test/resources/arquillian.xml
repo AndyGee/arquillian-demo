@@ -22,15 +22,19 @@
         http://jboss.org/schema/arquillian
         http://jboss.org/schema/arquillian/arquillian_1_0.xsd">
 
-  <container qualifier="tomee" default="true">
-    <configuration>
-      <property name="classifier">plus</property>
-      <property name="httpPort">-1</property>
-      <property name="stopPort">-1</property>
-      <property name="ajpPort">-1</property>
-      <property name="version">1.7.2</property>
-      <property name="properties"/>
-    </configuration>
-  </container>
+    <container qualifier="tomee" default="true">
+        <configuration>
+            <property name="classifier">plus</property>
+            <property name="httpPort">-1</property>
+            <property name="stopPort">-1</property>
+            <property name="ajpPort">-1</property>
+            <property name="version">1.7.2</property>
+            <property name="deployerProperties">
+                openejb.deployer.binaries.use=true
+                java.naming.security.principal=tomee
+                java.naming.security.credentials=unsecured
+            </property>
+        </configuration>
+    </container>
 
 </arquillian>

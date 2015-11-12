@@ -21,28 +21,37 @@
             xsi:schemaLocation="http://jboss.org/schema/arquillian
   http://jboss.org/schema/arquillian/arquillian_1_0.xsd">
 
-  <!--
-    Defines the Cube extension configuration.
-    Full documentation can be found here: https://github.com/arquillian/arquillian-cube
+    <!--
+      Defines the Cube extension configuration.
+      Full documentation can be found here: https://github.com/arquillian/arquillian-cube
 
-    NOTE: The 'dockerContainers' formatting/indentation is critical!
-  -->
-  <extension qualifier="docker">
-    <property name="serverUri">https://192.168.99.100:2376</property>
-    <property name="certPath">C:/Users/Windows/.docker/machine/machines/default</property>
-    <property name="machineName">default</property>
-    <property name="dockerMachinePath">D:/programs/DockerToolbox/docker-machine.exe</property>
-    <property name="serverVersion">1.21</property>
-    <property name="connectionMode">STARTORCONNECTANDLEAVE</property>
-    <!--@formatter:off-->
+      NOTE: The 'dockerContainers' formatting/indentation is critical!
+    -->
+    <extension qualifier="docker">
+        <property name="serverUri">https://192.168.99.100:2376</property>
+        <property name="certPath">C:/Users/Windows/.docker/machine/machines/default</property>
+        <property name="machineName">default</property>
+        <property name="dockerMachinePath">D:/programs/DockerToolbox/docker-machine.exe</property>
+        <property name="serverVersion">1.21</property>
+        <property name="connectionMode">STARTORCONNECTANDLEAVE</property>
+        <!--@formatter:off-->
     <property name="dockerContainers">
-      apache-tomee:
-        env_file: envs
+        tomcat:
         image: tutum/tomcat:7.0
+        exposedPorts: [8089/tcp]
         await:
           strategy: polling
-        portBindings: [8089/tcp, 8088/tcp, 8080->8080/tcp]
+        portBindings: [8089/tcp, 8088/tcp, 8081->8080/tcp]
     </property>
+    <!--<property name="dockerContainers">-->
+      <!--apache-tomee:-->
+        <!--env_file: envs-->
+        <!--image: tomee:7-jre-1.7.2-plus-->
+        <!--await:-->
+          <!--strategy: static-->
+          <!--ip: 192.168.99.100-->
+          <!--ports: [8080]-->
+    <!--</property>-->
       <!--<property name="dockerContainers">-->
       <!--tomee:-->
         <!--image: andygeede/webprofile-->
@@ -55,24 +64,33 @@
         <!--portBindings: [8089/tcp, 8080/tcp, 5432/udp]-->
     <!--</property>-->
      <!--@formatter:on-->
-  </extension>
+    </extension>
 
-  <!--
-    The qualifier name relates to the extension dockerContainers property.
-    As this example is using 'boot2docker' it is necessary to
-    specify the ip-address. This is usually 192.168.59.103,
-    boot2docker will display the actual ip-address on startup.
-  -->
-  <container qualifier="apache-tomee" default="true">
-    <configuration>
-      <property name="host">192.168.59.103</property>
-      <property name="httpPort">8080</property>
-      <property name="deployerProperties">
-        openejb.deployer.binaries.use=true
-        java.naming.security.principal=tomee
-        java.naming.security.credentials=unsecured
-      </property>
-    </configuration>
-  </container>
+    <!--
+      The qualifier name relates to the extension dockerContainers property.
+      As this example is using 'boot2docker' it is necessary to
+      specify the ip-address. This is usually 192.168.59.103,
+      boot2docker will display the actual ip-address on startup.
+    -->
+    <!--<container qualifier="apache-tomee" default="true">-->
+        <!--<configuration>-->
+            <!--<property name="host">192.168.59.103</property>-->
+            <!--<property name="httpPort">8080</property>-->
+            <!--<property name="deployerProperties">-->
+                <!--openejb.deployer.binaries.use=true-->
+                <!--java.naming.security.principal=tomee-->
+                <!--java.naming.security.credentials=unsecured-->
+            <!--</property>-->
+        <!--</configuration>-->
+    <!--</container>-->
+
+    <container qualifier="tomcat">
+        <configuration>
+            <property name="host">localhost</property>
+            <property name="httpPort">8081</property>
+            <property name="user">admin</property>
+            <property name="pass">mypass</property>
+        </configuration>
+    </container>
 
 </arquillian>

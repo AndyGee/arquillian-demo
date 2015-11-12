@@ -23,7 +23,7 @@
     <artifactId>arquillian-cube</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>arquillian-cube TomEE Webapp</name>
+    <name>arquillian-cube webapp</name>
     <url>http://tomee.apache.org</url>
 
     <properties>
@@ -32,7 +32,7 @@
         <!--<version.tomee>2.0.0-SNAPSHOT</version.tomee>-->
         <version.tomee>1.7.3-SNAPSHOT</version.tomee>
         <version.arquillian>1.1.10.Final</version.arquillian>
-        <version.arquillian-cube-docker>1.0.0.Alpha6</version.arquillian-cube-docker>
+        <version.arquillian-cube-docker>1.0.0.Alpha7</version.arquillian-cube-docker>
     </properties>
 
     <!--<dependencyManagement>-->
@@ -74,17 +74,24 @@
         </dependency>
 
         <!-- Defines the requirements for the TomEE remote Arquillian adapter -->
+        <!--<dependency>-->
+            <!--<groupId>org.apache.openejb</groupId>-->
+            <!--<artifactId>arquillian-tomee-remote</artifactId>-->
+            <!--<version>${version.tomee}</version>-->
+            <!--<scope>test</scope>-->
+            <!--<exclusions>-->
+                <!--<exclusion>-->
+                    <!--<artifactId>slf4j-jdk14</artifactId>-->
+                    <!--<groupId>org.slf4j</groupId>-->
+                <!--</exclusion>-->
+            <!--</exclusions>-->
+        <!--</dependency>-->
+
         <dependency>
-            <groupId>org.apache.openejb</groupId>
-            <artifactId>arquillian-tomee-remote</artifactId>
-            <version>${version.tomee}</version>
+            <groupId>org.jboss.arquillian.container</groupId>
+            <artifactId>arquillian-tomcat-remote-7</artifactId>
+            <version>1.0.0.CR7</version>
             <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <artifactId>slf4j-jdk14</artifactId>
-                    <groupId>org.slf4j</groupId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
         <dependency>
@@ -139,7 +146,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
-                    <argLine>-Xmx8192m -XX:MaxPermSize=512m</argLine>
+                    <argLine>-Xmx8192m -XX:MaxPermSize=512m -XX:PermSize=256m</argLine>
                 </configuration>
             </plugin>
         </plugins>
