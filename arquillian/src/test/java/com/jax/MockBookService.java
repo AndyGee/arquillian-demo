@@ -19,7 +19,7 @@ import javax.enterprise.inject.Specializes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
@@ -38,6 +38,6 @@ public class MockBookService extends BookService implements IBookService {
         final Book b = new Book();
         b.setBookId(0);
         b.setBookTitle("The Green Mile");
-        return Arrays.asList(b);
+        return Collections.singletonList(b);
     }
 }
