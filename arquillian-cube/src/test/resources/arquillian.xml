@@ -28,21 +28,32 @@
     NOTE: The 'dockerContainers' formatting/indentation is critical!
   -->
   <extension qualifier="docker">
-    <property name="serverVersion">1.12</property>
-    <property name="serverUri">http://boot2docker:2375</property>
+    <property name="serverUri">https://192.168.99.100:2376</property>
+    <property name="certPath">C:/Users/Windows/.docker/machine/machines/default</property>
+    <property name="machineName">default</property>
+    <property name="dockerMachinePath">D:/programs/DockerToolbox/docker-machine.exe</property>
+    <property name="serverVersion">1.21</property>
     <property name="connectionMode">STARTORCONNECTANDLEAVE</property>
     <!--@formatter:off-->
     <property name="dockerContainers">
-      tomee:
-        image: andygeede/webprofile
+      apache-tomee:
+        env_file: envs
+        image: tutum/tomcat:7.0
         await:
-          strategy: static
-          ip: 192.168.59.103
-          ports: [8080, 8089]
-          iterations: 100
-        env: [JAVA_OPTS=-Djava.rmi.server.hostname=dockerServerIp -Dcom.sun.management.jmxremote.rmi.port=8088 -Dcom.sun.management.jmxremote.port=8089 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false]
-        portBindings: [8089/tcp,8088/tcp,8080->8080/tcp,5432/udp]
+          strategy: polling
+        portBindings: [8089/tcp, 8088/tcp, 8080->8080/tcp]
     </property>
+      <!--<property name="dockerContainers">-->
+      <!--tomee:-->
+        <!--image: andygeede/webprofile-->
+
+      <!--image: tomee:7-jre-1.7.2-plus-->
+        <!--await:-->
+          <!--strategy: polling-->
+          <!--iterations: 100-->
+        <!--env: [JAVA_OPTS=-Djava.rmi.server.hostname=dockerServerIp -Dcom.sun.management.jmxremote.port=8089 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false]-->
+        <!--portBindings: [8089/tcp, 8080/tcp, 5432/udp]-->
+    <!--</property>-->
      <!--@formatter:on-->
   </extension>
 
@@ -52,7 +63,7 @@
     specify the ip-address. This is usually 192.168.59.103,
     boot2docker will display the actual ip-address on startup.
   -->
-  <container qualifier="tomee" default="true">
+  <container qualifier="apache-tomee" default="true">
     <configuration>
       <property name="host">192.168.59.103</property>
       <property name="httpPort">8080</property>

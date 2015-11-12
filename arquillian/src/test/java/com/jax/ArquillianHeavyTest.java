@@ -58,7 +58,7 @@ import java.util.Collection;
 @EnableServices({"jax-ws"})
 public class ArquillianHeavyTest {
 
-    @Deployment(testable = false)
+    @Deployment(testable = true)
     public static WebArchive deploy() {
 
         /**

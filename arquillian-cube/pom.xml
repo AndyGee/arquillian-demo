@@ -17,123 +17,132 @@
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+    <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.tomitribe</groupId>
-  <artifactId>arquillian-cube</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
-  <packaging>jar</packaging>
-  <name>arquillian-cube TomEE Webapp</name>
-  <url>http://tomee.apache.org</url>
+    <groupId>com.tomitribe</groupId>
+    <artifactId>arquillian-cube</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <name>arquillian-cube TomEE Webapp</name>
+    <url>http://tomee.apache.org</url>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <!--<version.tomee>2.0.0-SNAPSHOT</version.tomee>-->
-    <version.tomee>1.7.2</version.tomee>
-    <version.arquillian>1.1.8.Final</version.arquillian>
-    <version.arquillian-cube-docker>1.0.0.Final-SNAPSHOT</version.arquillian-cube-docker>
-  </properties>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <!--<version.tomee>2.0.0-SNAPSHOT</version.tomee>-->
+        <version.tomee>1.7.3-SNAPSHOT</version.tomee>
+        <version.arquillian>1.1.10.Final</version.arquillian>
+        <version.arquillian-cube-docker>1.0.0.Alpha6</version.arquillian-cube-docker>
+    </properties>
 
-  <!--<dependencyManagement>-->
-  <!--<dependencies>-->
-  <!--<dependency>-->
-  <!--<groupId>org.jboss.arquillian</groupId>-->
-  <!--<artifactId>arquillian-bom</artifactId>-->
-  <!--<version>${version.arquillian}</version>-->
-  <!--<scope>import</scope>-->
-  <!--<type>pom</type>-->
-  <!--</dependency>-->
-  <!--</dependencies>-->
-  <!--</dependencyManagement>-->
-
-  <dependencies>
-
-    <!-- This enables the Arquillian framework on JUnit-->
-    <dependency>
-      <groupId>org.jboss.arquillian.junit</groupId>
-      <artifactId>arquillian-junit-container</artifactId>
-      <version>${version.arquillian}</version>
-      <scope>test</scope>
-    </dependency>
-
-    <!-- This enables the Arquillian Cube extension in the arquillian.xml configuration file -->
-    <dependency>
-      <groupId>org.arquillian.cube</groupId>
-      <artifactId>arquillian-cube-docker</artifactId>
-      <version>${version.arquillian-cube-docker}</version>
-      <scope>test</scope>
-    </dependency>
-
-    <!-- Allows the definition of a @WebServlet -->
-    <dependency>
-      <groupId>org.jboss.spec.javax.servlet</groupId>
-      <artifactId>jboss-servlet-api_3.1_spec</artifactId>
-      <version>1.0.0.Final</version>
-      <scope>provided</scope>
-    </dependency>
-
-    <!-- Defines the requirements for the TomEE remote Arquillian adapter -->
-    <dependency>
-      <groupId>org.apache.openejb</groupId>
-      <artifactId>arquillian-tomee-remote</artifactId>
-      <version>${version.tomee}</version>
-      <scope>test</scope>
-      <exclusions>
-        <exclusion>
-          <artifactId>slf4j-jdk14</artifactId>
-          <groupId>org.slf4j</groupId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-
+    <!--<dependencyManagement>-->
+    <!--<dependencies>-->
     <!--<dependency>-->
-    <!--<groupId>org.apache.geronimo.specs</groupId>-->
-    <!--<artifactId>geronimo-osgi-locator</artifactId>-->
-    <!--<version>1.1</version>-->
+    <!--<groupId>org.jboss.arquillian</groupId>-->
+    <!--<artifactId>arquillian-bom</artifactId>-->
+    <!--<version>${version.arquillian}</version>-->
+    <!--<scope>import</scope>-->
+    <!--<type>pom</type>-->
     <!--</dependency>-->
+    <!--</dependencies>-->
+    <!--</dependencyManagement>-->
 
-    <!-- Required for the creation of JUnit tests-->
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.12</version>
-      <scope>test</scope>
-    </dependency>
+    <dependencies>
 
-  </dependencies>
+        <!-- This enables the Arquillian framework on JUnit-->
+        <dependency>
+            <groupId>org.jboss.arquillian.junit</groupId>
+            <artifactId>arquillian-junit-container</artifactId>
+            <version>${version.arquillian}</version>
+            <scope>test</scope>
+        </dependency>
 
-  <build>
+        <!-- This enables the Arquillian Cube extension in the arquillian.xml configuration file -->
+        <dependency>
+            <groupId>org.arquillian.cube</groupId>
+            <artifactId>arquillian-cube-docker</artifactId>
+            <version>${version.arquillian-cube-docker}</version>
+            <scope>test</scope>
+        </dependency>
 
-    <pluginManagement>
-      <plugins>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.2</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-surefire-plugin</artifactId>
-          <version>2.18.1</version>
-        </plugin>
-      </plugins>
-    </pluginManagement>
+        <!-- Allows the definition of a @WebServlet -->
+        <dependency>
+            <groupId>org.apache.openejb</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>6.0-6</version>
+            <scope>provided</scope>
+        </dependency>
 
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <source>1.7</source>
-          <target>1.7</target>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-      </plugin>
-    </plugins>
-  </build>
+        <!-- Defines the requirements for the TomEE remote Arquillian adapter -->
+        <dependency>
+            <groupId>org.apache.openejb</groupId>
+            <artifactId>arquillian-tomee-remote</artifactId>
+            <version>${version.tomee}</version>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <artifactId>slf4j-jdk14</artifactId>
+                    <groupId>org.slf4j</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-jdk14</artifactId>
+            <version>1.7.10</version>
+        </dependency>
+
+        <!--<dependency>-->
+        <!--<groupId>org.apache.geronimo.specs</groupId>-->
+        <!--<artifactId>geronimo-osgi-locator</artifactId>-->
+        <!--<version>1.1</version>-->
+        <!--</dependency>-->
+
+        <!-- Required for the creation of JUnit tests-->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.2</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.18.1</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <argLine>-Xmx8192m -XX:MaxPermSize=512m</argLine>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

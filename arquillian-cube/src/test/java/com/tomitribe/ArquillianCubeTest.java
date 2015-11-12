@@ -18,7 +18,6 @@ package com.tomitribe;
 
 import com.tomitribe.cube.HelloWorldServlet;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -45,7 +44,7 @@ public class ArquillianCubeTest {
 
     /**
      * Programmatically enable Java Util Logging configuration.
-     * This is so that we can see verbose console logging.
+     * This is just so that we can see verbose console logging.
      */
     static {
         final InputStream inputStream = ArquillianCubeTest.class.getResourceAsStream("/logging.properties");
@@ -83,7 +82,7 @@ public class ArquillianCubeTest {
      * @throws IOException On error
      */
     @Test
-    @RunAsClient
+    //@RunAsClient
     public void test() throws IOException {
 
         final URL obj = new URL(resource, "HelloWorld");
@@ -91,7 +90,7 @@ public class ArquillianCubeTest {
         con.setRequestMethod("GET");
 
         String inputLine;
-        final StringBuffer response = new StringBuffer();
+        final StringBuilder response = new StringBuilder();
         final BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
 
         while ((inputLine = in.readLine()) != null) {
