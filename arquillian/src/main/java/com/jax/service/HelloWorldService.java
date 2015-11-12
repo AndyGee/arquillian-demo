@@ -10,7 +10,7 @@
  */
 package com.jax.service;
 
-import com.jax.application.IBookService;
+import com.jax.application.BookService;
 import com.jax.entities.Book;
 
 import javax.inject.Inject;
@@ -21,7 +21,7 @@ import java.util.List;
 public class HelloWorldService {
 
     @Inject
-    private IBookService service;
+    private BookService service;
 
 
     public String getMessage() {

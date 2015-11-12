@@ -17,7 +17,7 @@
 package com.jax;
 
 import com.jax.application.BookService;
-import com.jax.application.IBookService;
+import com.jax.application.BookServiceImpl;
 import com.jax.entities.Book;
 import com.jax.presentation.BookBean;
 import com.jax.service.HelloWorldService;
@@ -51,8 +51,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URL;
-import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 
 @RunWith(Arquillian.class)
 @EnableServices({"jax-ws"})
@@ -82,7 +82,7 @@ public class ArquillianHeavyTest {
                 .up()
                 .exportAsString();
 
-        final Collection<String> dependencies = Arrays.asList(
+        final Collection<String> dependencies = Collections.singletonList(
                 "org.apache.openjpa:openjpa:2.3.0"
         );
 
@@ -94,8 +94,8 @@ public class ArquillianHeavyTest {
                 + ".war") //Name is just convenient
 
                 .addClasses(
-                        IBookService.class,
                         BookService.class,
+                        BookServiceImpl.class,
                         MockBookService.class,
                         Book.class,
                         BookBean.class,

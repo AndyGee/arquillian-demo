@@ -21,6 +21,6 @@ import java.util.Set;
 @ApplicationPath("/api")
 public class ApplicationConf extends Application {
     public Set<Class<?>> getClasses() {
-        return new HashSet<>(Arrays.asList(BookService.class, HelloWorldService.class));
+        return new HashSet<>(Arrays.asList(BookServiceImpl.class, HelloWorldService.class));
     }
 }

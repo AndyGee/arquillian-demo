@@ -10,8 +10,8 @@
  */
 package com.jax;
 
+import com.jax.application.BookServiceImpl;
 import com.jax.application.BookService;
-import com.jax.application.IBookService;
 import com.jax.entities.Book;
 
 import javax.ejb.Stateless;
@@ -28,7 +28,7 @@ import static javax.ws.rs.core.MediaType.APPLICATION_XML;
 @Specializes
 @Stateless
 @Path("/myrest")
-public class MockBookService extends BookService implements IBookService {
+public class MockBookService extends BookServiceImpl implements BookService {
 
     @Override
     @Path("complex")

@@ -16,8 +16,8 @@
  */
 package com.jax;
 
+import com.jax.application.BookServiceImpl;
 import com.jax.application.BookService;
-import com.jax.application.IBookService;
 import com.jax.entities.Book;
 import com.jax.presentation.BookBean;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -60,8 +60,8 @@ public class ArquillianLightTest {
                 //Name is just convenient
 
                 .addClasses(
-                        IBookService.class,
                         BookService.class,
+                        BookServiceImpl.class,
                         Book.class,
                         BookBean.class
                 )
@@ -81,7 +81,7 @@ public class ArquillianLightTest {
     }
 
     @Inject
-    protected IBookService service;
+    protected BookService service;
 
     final String bookName = "Romeo and Juliet";
 

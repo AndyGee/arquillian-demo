@@ -16,8 +16,8 @@
  */
 package com.jax;
 
+import com.jax.application.BookServiceImpl;
 import com.jax.application.BookService;
-import com.jax.application.IBookService;
 import com.jax.entities.Book;
 import com.jax.presentation.BookBean;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -41,8 +41,8 @@ public class ArquillianSimpleTest {
         return ShrinkWrap.create(WebArchive.class
                 , ArquillianSimpleTest.class.getName() + ".war")
                 .addClasses(
-                        IBookService.class,
                         BookService.class,
+                        BookServiceImpl.class,
                         Book.class,
                         BookBean.class
                 )
@@ -51,7 +51,7 @@ public class ArquillianSimpleTest {
     }
 
     @Inject
-    protected IBookService service;
+    protected BookService service;
 
     @Test
     public void test() {
