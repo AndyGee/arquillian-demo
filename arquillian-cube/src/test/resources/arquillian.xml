@@ -50,30 +50,30 @@
     </extension>
 
     <!--
-      The qualifier name relates to the extension dockerContainers property.
+      The qualifier name relates to the extension dockerContainers image parent, in this case 'tomee:'.
       As this example is using 'boot2docker' it is necessary to
       specify the ip-address. This is usually 192.168.59.103,
       boot2docker will display the actual ip-address on startup.
     -->
-    <!--<container qualifier="apache-tomee" default="true">-->
-        <!--<configuration>-->
-            <!--<property name="host">192.168.59.103</property>-->
-            <!--<property name="httpPort">8080</property>-->
-            <!--<property name="deployerProperties">-->
-                <!--openejb.deployer.binaries.use=true-->
-                <!--java.naming.security.principal=tomee-->
-                <!--java.naming.security.credentials=unsecured-->
-            <!--</property>-->
-        <!--</configuration>-->
-    <!--</container>-->
-
-    <container qualifier="tomcat">
+    <container qualifier="tomee" default="true">
         <configuration>
-            <property name="host">localhost</property>
-            <property name="httpPort">8081</property>
-            <property name="user">admin</property>
-            <property name="pass">mypass</property>
+            <property name="host">192.168.59.103</property>
+            <property name="httpPort">8080</property>
+            <property name="deployerProperties">
+                openejb.deployer.binaries.use=true
+                java.naming.security.principal=tomee
+                java.naming.security.credentials=unsecured
+            </property>
         </configuration>
     </container>
+
+    <!--<container qualifier="tomcat">-->
+        <!--<configuration>-->
+            <!--<property name="host">localhost</property>-->
+            <!--<property name="httpPort">8081</property>-->
+            <!--<property name="user">admin</property>-->
+            <!--<property name="pass">mypass</property>-->
+        <!--</configuration>-->
+    <!--</container>-->
 
 </arquillian>

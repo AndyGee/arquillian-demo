@@ -24,8 +24,11 @@ Thanks Alex for this great project.
 
 == Docker Machine
 
-Docker Machine effectively replaces the old Boot2Docker (although it basically still is under the hood).
-It has been redesigned to make the provisioning of Docker images m more accessible.
+You will need to have set up the Docker Toolbox or Boot2Docker for your operating system before you continue, you can find it here: https://www.docker.com/docker-toolbox[https://www.docker.com/docker-toolbox]
+
+Docker Machine effectively replaces the old Boot2Docker (although it basically still is Boot2Docker under the hood).
+It has been redesigned to make the provisioning of Docker images more accessible and less error prone.
+The Docker Machine *must* be running before testing begins.
 
 == Disable TLS on Docker 1.3.x for Boot2Docker
 
@@ -95,19 +98,22 @@ tool to have.
 
 == Getting Started - The Usual POM Suspects
 
+*Every time* you want to test against Docker images it is essential the the Docker Machine or Boot2Docker is already configured and running.
+This should always be your first step before testing begins.
+
 Using the blog https://github.com/AndyGee/JAX/tree/master/arquillian-cube[source code] as a reference you need to add the Cube
-dependencies to your projects https://github.com/AndyGee/JAX/tree/master/arquillian-cube/pom.xml[pom.xml] in addition to the usual Arquillian dependencies (at the time of writing, version 1.0.0.Alpha5):
+dependencies to your projects https://github.com/AndyGee/JAX/tree/master/arquillian-cube/pom.xml[pom.xml] in addition to the usual Arquillian dependencies (at the time of writing, version 1.0.0.Alpha7):
 [source,xml]
 ----
     <dependency>
       <groupId>org.arquillian.cube</groupId>
       <artifactId>arquillian-cube-docker</artifactId>
-      <version>1.0.0.Alpha5</version>
+      <version>1.0.0.Alpha7</version>
       <scope>test</scope>
     </dependency>
 ----
 
-Note: Always check for the latest version, the project is moving quickly.
+Note: Always check for the latest version, the project is moving quickly: http://arquillian.org/modules/cube-extension/[http://arquillian.org/modules/cube-extension/]
 
 == The Arquillian Cube Extension
 
@@ -146,7 +152,8 @@ Add the Cube extension to your https://github.com/AndyGee/JAX/tree/master/arquil
       </extension>
 
       <!--
-        The qualifier name relates to the extension dockerContainers property 'tomee:'.
+        The qualifier name relates to the extension dockerContainers
+        property 'tomee:'.
         As this example is using 'boot2docker' it is necessary to
         specify the ip-address. This is usually 192.168.59.103,
         boot2docker will display the actual ip-address on startup.
