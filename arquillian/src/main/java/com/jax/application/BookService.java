@@ -12,19 +12,11 @@ package com.jax.application;
 
 import com.jax.entities.Book;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
 import java.util.List;
 
-import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
-import static javax.ws.rs.core.MediaType.APPLICATION_XML;
-
 public interface BookService {
-    void addBook(Book book);
 
-    @Path("complex")
-    @GET
-    @Produces({APPLICATION_JSON, APPLICATION_XML})
-    List<Book> getAllBooks();
+    public void addBook(final Book book) ;
+
+    public List<Book> getAllBooks() ;
 }

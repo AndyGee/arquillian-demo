@@ -37,11 +37,11 @@
         <!--@formatter:off-->
     <property name="dockerContainers">
         tomcat:
-        image: tutum/tomcat:7.0
-        exposedPorts: [8089/tcp]
-        await:
-          strategy: polling
-        portBindings: [8089/tcp, 8088/tcp, 8081->8080/tcp]
+            image: tutum/tomcat:7.0
+            exposedPorts: [8089/tcp]
+            await:
+              strategy: polling
+              iterations: 100
     </property>
     <!--<property name="dockerContainers">-->
       <!--apache-tomee:-->
