@@ -22,10 +22,15 @@ component and or integration tests. Then Cube might be the ticket.
 Alex is a star and is always willing to invest time to help. You can read some recent news about him https://www.voxxed.com/blog/2015/06/arquillian-docker-and-testing-in-containers/[here].
 Thanks Alex for this great project.
 
+== Docker Machine
+
+Docker Machine effectively replaces the old Boot2Docker (although it basically still is under the hood).
+It has been redesigned to make the provisioning of Docker images m more accessible.
+
 == Disable TLS on Docker 1.3.x for Boot2Docker
 
-If you are using an older version of Docker, or do not require Boot2Docker (eg. Linux), then you can skip the actions in this section.
-Please still read on, as this may affect you should you perform an upgrade in the future.
+If for some reason you cannot use Docker Machine and you are still using an older version of Docker, or do not require Boot2Docker (eg. Linux), then you can skip the actions in this section and go straight to 'Getting Started'.
+Please still read on, as this may still be of use to you should you wish to disable TLS.
 
 As of version 1.3.x Docker has switched to using TLS for communication with the Docker API (Secure sockets over HTTPS on port 2376).
 This was an abrupt (undocumented, yet critical) change that breaks many tools that have been written for previous Docker versions.
