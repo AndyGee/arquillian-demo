@@ -127,41 +127,36 @@ Add the Cube extension to your https://github.com/AndyGee/JAX/tree/master/arquil
       http://jboss.org/schema/arquillian/arquillian_1_0.xsd">
 
       <!--
-        Defines the Cube extension configuration.
-        Full documentation can be found here: https://github.com/arquillian/arquillian-cube
+      Defines the Cube extension configuration.
+      Full documentation can be found here: https://github.com/arquillian/arquillian-cube
 
-        NOTE: The 'dockerContainers' formatting/indentation is critical!
-      -->
-      <extension qualifier="docker">
-        <property name="serverVersion">1.12</property>
-        <property name="serverUri">http://boot2docker:2375</property>
+      NOTE: The 'dockerContainers' YAML formatting/indentation is critical!
+    -->
+    <extension qualifier="docker">
+        <property name="serverVersion">1.21</property>
+        <property name="machineName">default</property>
         <property name="connectionMode">STARTORCONNECTANDLEAVE</property>
         <!--@formatter:off-->
         <property name="dockerContainers">
           tomee:
             image: andygeede/webprofile
             await:
-              strategy: static
-              ip: 192.168.59.103
+              strategy: polling
+              type: ping
               ports: [8080, 8089]
               iterations: 100
-            env: [JAVA_OPTS=-Djava.rmi.server.hostname=dockerServerIp -Dcom.sun.management.jmxremote.rmi.port=8088 -Dcom.sun.management.jmxremote.port=8089 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false]
-            portBindings: [8089/tcp,8088/tcp,8080->8080/tcp,5432/udp]
+            env: [JAVA_OPTS=-Djava.rmi.server.hostname=dockerServerIp -Dopenejb.system.apps=true -Dopenejb.deployments.classpath=true -Dtomee.remote.support=true -Dcom.sun.management.jmxremote.rmi.port=8088 -Dcom.sun.management.jmxremote.port=8089 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false]
+            portBindings: [8089/tcp,8088/tcp,8080->8080/tcp]
         </property>
-         <!--@formatter:on-->
-      </extension>
+        <!--@formatter:on-->
+    </extension>
 
       <!--
-        The qualifier name relates to the extension dockerContainers
-        property 'tomee:'.
-        As this example is using 'boot2docker' it is necessary to
-        specify the ip-address. This is usually 192.168.59.103,
-        boot2docker will display the actual ip-address on startup.
+        The qualifier name directly relates to the extension dockerContainers
+        YAML property 'tomee:'.
       -->
       <container qualifier="tomee" default="true">
         <configuration>
-          <property name="host">192.168.59.103</property>
-          <property name="httpPort">8080</property>
           <property name="deployerProperties">
             openejb.deployer.binaries.use=true
             java.naming.security.principal=tomee
@@ -182,11 +177,11 @@ This specifies the docker API version. Cube is known to work with, and has been 
     <property name="serverVersion">1.12</property>
 ----
 
-This specifies the docker URI. I am using 'boot2docker', which will be resolved to the actual boot2docker IP-Address.
-The port has also been changed from the default 2376 to reflect the changes made above (TLS), likewise the protocol (http rather than https).
+This specifies the docker machine name. I am using 'default', which is (you guessed) the default name. You can actually create
+different docker machine named instances, and so this name is the one you want to run against.
 [source,xml]
 ----
-    <property name="serverUri">http://boot2docker:2375</property>
+    <property name="machineName">default</property>
 ----
 
 There are various connectionMode options, but I like this one as it bootstraps the docker image and leaves it running for super fast continuation tests.
@@ -197,7 +192,7 @@ If your tests change the state of the image then you may want to use the default
 ----
 
 This is where we define options that relate directly to the docker image that is to be run for the tests.
-It uses a YAML syntax, so formatting and indentations are absolutely critical - Make sure your IDE never reformats it.
+It uses a YAML (Yet Another Mark-up Language) syntax, so formatting and indentations are absolutely critical - Make sure your IDE never reformats it.
 The specified image was built using the dockerfile located https://github.com/AndyGee/JAX/blob/master/docker/Dockerfile[here]. It basically
 fires up a TomEE instance and a PostgreSQL database server (I'll be showing you how to run persistence tests in my next blog).
 [source,xml]
@@ -230,7 +225,7 @@ needs to run against the Arquillian test framework. This is done by annotating t
 ----
 
 Next I define a very simple (as simple as it gets) web application archive which will be deployed on the remote server. Specifying
-@Deployment(testable = false) ensures that the archive is isolated from the actual test class, and is a truly remote deployment:
+@Deployment(testable = false) ensures that the archive is isolated from the actual test class, and is a truly remote deployment which runs the test in client mode:
 [source,java]
 ----
     @Deployment(testable = false)
@@ -238,8 +233,10 @@ Next I define a very simple (as simple as it gets) web application archive which
         return ShrinkWrap.create(WebArchive.class, "hello.war").addClass(HelloWorldServlet.class);
     }
 ----
+Note: Using @Deployment(testable = false) can disable certain plugins, like Jacoco.
+So it is possible to set it to true, in which case you must ensure that test methods are annotated with @RunAsClient.
 
-Now for the actual test. Adding the @RunAsClient annotation means that the body of the test will be run within the runtime of the client,
+So, for the actual test. Adding the @RunAsClient annotation means that the body of the test will be run within the runtime of the client,
 rather than being deployed and run on the remote server. This is as close to a production environment as we can get, hence the term 'Production Near'.
 [source,java]
 ----
@@ -248,7 +245,7 @@ rather than being deployed and run on the remote server. This is as close to a p
     public void test() throws IOException {
 ----
 
-That is it. You can see the working example by cloning the blog code and running it.
+Amazingly enough, that is it. You can see the working example by cloning the blog code and running it.
 ----
 git clone https://github.com/AndyGee/JAX.git arquillian
 cd arquillian/arquillian-cube

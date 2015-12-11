@@ -25,7 +25,7 @@
       Defines the Cube extension configuration.
       Full documentation can be found here: https://github.com/arquillian/arquillian-cube
 
-      NOTE: The 'dockerContainers' formatting/indentation is critical!
+      NOTE: The 'dockerContainers' yaml formatting/indentation is critical!
     -->
     <extension qualifier="docker">
         <property name="machineName">default</property>
