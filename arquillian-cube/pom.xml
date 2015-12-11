@@ -30,7 +30,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <!--<version.tomee>2.0.0-SNAPSHOT</version.tomee>-->
-        <version.tomee>1.7.3-SNAPSHOT</version.tomee>
+        <version.tomee>1.7.3</version.tomee>
         <version.arquillian>1.1.10.Final</version.arquillian>
         <version.arquillian-cube-docker>1.0.0.Alpha7</version.arquillian-cube-docker>
     </properties>
@@ -74,26 +74,26 @@
         </dependency>
 
         <!-- Defines the requirements for the TomEE remote Arquillian adapter -->
-        <!--<dependency>-->
-            <!--<groupId>org.apache.openejb</groupId>-->
-            <!--<artifactId>arquillian-tomee-remote</artifactId>-->
-            <!--<version>${version.tomee}</version>-->
-            <!--<scope>test</scope>-->
-            <!--<exclusions>-->
-                <!--<exclusion>-->
-                    <!--<artifactId>slf4j-jdk14</artifactId>-->
-                    <!--<groupId>org.slf4j</groupId>-->
-                <!--</exclusion>-->
-            <!--</exclusions>-->
-        <!--</dependency>-->
-
+        <dependency>
+            <groupId>org.apache.openejb</groupId>
+            <artifactId>arquillian-tomee-remote</artifactId>
+            <version>${version.tomee}</version>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <artifactId>slf4j-jdk14</artifactId>
+                    <groupId>org.slf4j</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+<!--
         <dependency>
             <groupId>org.jboss.arquillian.container</groupId>
             <artifactId>arquillian-tomcat-remote-7</artifactId>
             <version>1.0.0.CR7</version>
             <scope>test</scope>
         </dependency>
-
+-->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-jdk14</artifactId>
