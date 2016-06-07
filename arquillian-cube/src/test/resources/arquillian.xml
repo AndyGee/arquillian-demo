@@ -29,19 +29,19 @@
     -->
     <extension qualifier="docker">
         <property name="machineName">default</property>
-        <property name="serverVersion">1.21</property>
+        <property name="serverVersion">1.23</property>
+        <!--<property name="serverUri">tcp://192.168.99.100:2376</property>-->
         <property name="connectionMode">STARTORCONNECTANDLEAVE</property>
-      <!--@formatter:off-->
+        <!--@formatter:off-->
         <property name="dockerContainers">
           tomee:
             image: andygeede/webprofile
             await:
               strategy: polling
               type: ping
-              ports: [8080, 8089]
               iterations: 100
             env: [JAVA_OPTS=-Djava.rmi.server.hostname=dockerServerIp -Dopenejb.system.apps=true -Dopenejb.deployments.classpath=true -Dtomee.remote.support=true -Dcom.sun.management.jmxremote.rmi.port=8088 -Dcom.sun.management.jmxremote.port=8089 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false]
-            portBindings: [8089/tcp,8088/tcp,8080->8080/tcp]
+            portBindings: [8089/tcp, 8088/tcp, 8080->8080/tcp]
         </property>
          <!--@formatter:on-->
     </extension>
@@ -54,6 +54,8 @@
     -->
     <container qualifier="tomee" default="true">
         <configuration>
+            <property name="user">tomee</property>
+            <property name="pass">unsecured</property>
             <property name="deployerProperties">
                 openejb.deployer.binaries.use=true
                 java.naming.security.principal=tomee
@@ -63,12 +65,12 @@
     </container>
 
     <!--<container qualifier="tomcat">-->
-        <!--<configuration>-->
-            <!--<property name="host">localhost</property>-->
-            <!--<property name="httpPort">8081</property>-->
-            <!--<property name="user">admin</property>-->
-            <!--<property name="pass">mypass</property>-->
-        <!--</configuration>-->
+    <!--<configuration>-->
+    <!--<property name="host">localhost</property>-->
+    <!--<property name="httpPort">8081</property>-->
+    <!--<property name="user">admin</property>-->
+    <!--<property name="pass">mypass</property>-->
+    <!--</configuration>-->
     <!--</container>-->
 
 </arquillian>

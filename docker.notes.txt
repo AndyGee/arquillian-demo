@@ -1,2 +1,7 @@
 docker -H tcp://192.168.99.100:2376 version
 
+docker run -p 8080:8080 -it --rm tomee:8-jre-1.7.4-plus
+
+http://192.168.99.100:8080/
+
+docker run -p 8080:8080 -it --rm andygeede/webprofile

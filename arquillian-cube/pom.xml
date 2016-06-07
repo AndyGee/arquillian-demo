@@ -30,22 +30,23 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <!--<version.tomee>2.0.0-SNAPSHOT</version.tomee>-->
-        <version.tomee>1.7.3</version.tomee>
+        <version.tomee>1.7.4</version.tomee>
         <version.arquillian>1.1.10.Final</version.arquillian>
-        <version.arquillian-cube-docker>1.0.0.Alpha7</version.arquillian-cube-docker>
+        <!--<version.arquillian-cube-docker>1.0.0.Alpha7</version.arquillian-cube-docker>-->
+        <version.arquillian-cube-docker>1.0.0.Final-SNAPSHOT</version.arquillian-cube-docker>
     </properties>
 
-    <!--<dependencyManagement>-->
-    <!--<dependencies>-->
-    <!--<dependency>-->
-    <!--<groupId>org.jboss.arquillian</groupId>-->
-    <!--<artifactId>arquillian-bom</artifactId>-->
-    <!--<version>${version.arquillian}</version>-->
-    <!--<scope>import</scope>-->
-    <!--<type>pom</type>-->
-    <!--</dependency>-->
-    <!--</dependencies>-->
-    <!--</dependencyManagement>-->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.jboss.arquillian</groupId>
+                <artifactId>arquillian-bom</artifactId>
+                <version>${version.arquillian}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
 
@@ -53,7 +54,6 @@
         <dependency>
             <groupId>org.jboss.arquillian.junit</groupId>
             <artifactId>arquillian-junit-container</artifactId>
-            <version>${version.arquillian}</version>
             <scope>test</scope>
         </dependency>
 
@@ -97,7 +97,7 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-jdk14</artifactId>
-            <version>1.7.10</version>
+            <version>1.7.21</version>
         </dependency>
 
         <!--<dependency>-->
@@ -123,12 +123,12 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.2</version>
+                    <version>3.5.1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.18.1</version>
+                    <version>2.19.1</version>
                 </plugin>
             </plugins>
         </pluginManagement>

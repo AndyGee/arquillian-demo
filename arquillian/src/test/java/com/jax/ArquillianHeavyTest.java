@@ -55,7 +55,7 @@ import java.util.Collection;
 import java.util.Collections;
 
 @RunWith(Arquillian.class)
-@EnableServices({"jax-ws"})
+@EnableServices({"jax-ws", "jax-rs"})
 public class ArquillianHeavyTest {
 
     @Deployment(testable = true)
