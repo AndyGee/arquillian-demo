@@ -38,6 +38,8 @@ public class ArquillianSimpleTest {
     @Deployment
     public static WebArchive deploy() {
 
+        //return ShrinkWrap.create(JavaArchive.class
+        //return ShrinkWrap.create(EnterpriseArchive.class
         return ShrinkWrap.create(WebArchive.class
                 , ArquillianSimpleTest.class.getName() + ".war")
                 .addClasses(

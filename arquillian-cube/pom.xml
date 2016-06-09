@@ -63,6 +63,19 @@
             <artifactId>arquillian-cube-docker</artifactId>
             <version>${version.arquillian-cube-docker}</version>
             <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <artifactId>commons-compress</artifactId>
+                    <groupId>org.apache.commons</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-compress</artifactId>
+            <version>1.9</version>
+            <scope>test</scope>
         </dependency>
 
         <!-- Allows the definition of a @WebServlet -->

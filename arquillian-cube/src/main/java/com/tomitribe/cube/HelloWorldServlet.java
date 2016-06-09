@@ -36,5 +36,6 @@ public class HelloWorldServlet extends HttpServlet {
     protected void doGet(final HttpServletRequest req, final HttpServletResponse res) throws ServletException, IOException {
         final PrintWriter writer = res.getWriter();
         writer.println("Hello World");
+        writer.close();
     }
 }
