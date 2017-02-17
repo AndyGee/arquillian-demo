@@ -30,8 +30,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <!--<version.tomee>2.0.0-SNAPSHOT</version.tomee>-->
-        <version.tomee>1.7.4</version.tomee>
-        <version.arquillian>1.1.10.Final</version.arquillian>
+        <version.tomee>7.0.2</version.tomee>
+        <version.arquillian>1.1.11.Final</version.arquillian>
         <!--<version.arquillian-cube-docker>1.0.0.Alpha7</version.arquillian-cube-docker>-->
         <version.arquillian-cube-docker>1.0.0.Final-SNAPSHOT</version.arquillian-cube-docker>
     </properties>
@@ -74,21 +74,21 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-compress</artifactId>
-            <version>1.9</version>
+            <version>1.11</version>
             <scope>test</scope>
         </dependency>
 
         <!-- Allows the definition of a @WebServlet -->
         <dependency>
-            <groupId>org.apache.openejb</groupId>
+            <groupId>org.apache.tomee</groupId>
             <artifactId>javaee-api</artifactId>
-            <version>6.0-6</version>
+            <version>7.0-1</version>
             <scope>provided</scope>
         </dependency>
 
         <!-- Defines the requirements for the TomEE remote Arquillian adapter -->
         <dependency>
-            <groupId>org.apache.openejb</groupId>
+            <groupId>org.apache.tomee</groupId>
             <artifactId>arquillian-tomee-remote</artifactId>
             <version>${version.tomee}</version>
             <scope>test</scope>

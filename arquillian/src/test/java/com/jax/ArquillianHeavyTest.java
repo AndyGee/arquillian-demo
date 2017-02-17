@@ -83,7 +83,7 @@ public class ArquillianHeavyTest {
                 .exportAsString();
 
         final Collection<String> dependencies = Collections.singletonList(
-                "org.apache.openjpa:openjpa:2.3.0"
+                "org.apache.openjpa:openjpa:2.4.0"
         );
 
         final File[] libs = Maven.resolver()

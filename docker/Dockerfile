@@ -1,4 +1,4 @@
-FROM java:7-jre
+FROM java:8-jre
 
 # Unsecured Apache TomEE WebProfile 8080 + PostgreSQL 9.3 5432 Demo
 
@@ -12,7 +12,7 @@ WORKDIR /usr/local/tomee
 USER tomee
 
 
-RUN curl -SL http://apache.rediris.es/tomee/tomee-1.7.2/apache-tomee-1.7.2-webprofile.tar.gz -o tomee.tar.gz \
+RUN curl -SL http://apache.rediris.es/tomee/tomee-7.0.2/apache-tomee-7.0.2-webprofile.tar.gz -o tomee.tar.gz \
 	&& tar -xvf tomee.tar.gz --strip-components=1 \
 	&& rm bin/*.bat \
 	&& rm tomee.tar.gz*

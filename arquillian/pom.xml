@@ -37,10 +37,11 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <version.openjpa>2.4.1</version.openjpa>
-        <version.tomee>1.7.4</version.tomee>
-        <version.jacoco>0.7.4.201502262128</version.jacoco>
+        <version.tomee>7.0.2</version.tomee>
+        <version.jacoco>0.7.5.201505241946</version.jacoco>
         <version.arquillian_jacoco>1.0.0.Alpha8</version.arquillian_jacoco>
         <argLine>-Xmx512m</argLine>
+        <version.arquillian>1.1.11.Final</version.arquillian>
     </properties>
 
     <dependencyManagement>
@@ -48,7 +49,7 @@
             <dependency>
                 <groupId>org.jboss.arquillian</groupId>
                 <artifactId>arquillian-bom</artifactId>
-                <version>1.1.10.Final</version>
+                <version>${version.arquillian}</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
@@ -57,16 +58,16 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.apache.openejb</groupId>
+            <groupId>org.apache.tomee</groupId>
             <artifactId>javaee-api</artifactId>
-            <version>6.0-6</version>
+            <version>7.0-1</version>
             <scope>provided</scope>
         </dependency>
 
         <!-- to test with TomEE and Arquillian-->
         <dependency>
-            <groupId>org.apache.openejb</groupId>
-            <artifactId>arquillian-tomee-remote</artifactId>
+            <groupId>org.apache.tomee</groupId>
+            <artifactId>arquillian-tomee-embedded</artifactId>
             <version>${version.tomee}</version>
             <scope>test</scope>
             <exclusions>
@@ -131,16 +132,16 @@
         </dependency>
 
         <dependency>
-            <groupId>org.apache.openejb</groupId>
+            <groupId>org.apache.tomee</groupId>
             <artifactId>openejb-client</artifactId>
-            <version>4.7.4</version>
+            <version>${version.tomee}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>org.jboss.arquillian.junit</groupId>
             <artifactId>arquillian-junit-container</artifactId>
-            <version>1.1.10.Final</version>
+            <version>${version.arquillian}</version>
             <scope>test</scope>
         </dependency>
 
@@ -157,7 +158,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.5</version>
+                    <version>3.5.1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -175,7 +176,7 @@
                     <version>2.6</version>
                 </plugin>
                 <plugin>
-                    <groupId>org.apache.openejb.maven</groupId>
+                    <groupId>org.apache.tomee.maven</groupId>
                     <artifactId>tomee-maven-plugin</artifactId>
                     <version>${version.tomee}</version>
                     <configuration>
@@ -207,7 +208,7 @@
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>org.apache.openejb.maven</groupId>
+                <groupId>org.apache.tomee.maven</groupId>
                 <artifactId>tomee-maven-plugin</artifactId>
                 <configuration>
                     <context>ROOT</context>

@@ -4,6 +4,6 @@
 
 
   <alternatives>
-    <class>com.jax.ArquillianHeavyTest.MockBookService</class>
+    <class>com.jax.MockBookService</class>
   </alternatives>
 </beans>
